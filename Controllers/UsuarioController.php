@@ -2,7 +2,7 @@
 
 require './Models/Usuario.php';
 
-
+ 
 class UsuarioController extends Usuario
 {
     public function LoginVista()
