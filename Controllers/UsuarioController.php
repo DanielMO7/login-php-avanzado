@@ -1,7 +1,6 @@
 <?php
 
 require './Models/Usuario.php';
-
  
 class UsuarioController
 {
@@ -56,11 +55,9 @@ class UsuarioController
         $usuario->contrasena = $contrasena;
         $informacion_usuario = $usuario->ValidarUsuario();
         if ($informacion_usuario) {
-            echo "Bienvenido ". $_SESSION['rol'];
             header('Location: /login/index.php/home');
         }else{
             header('Location: /login/index.php/login');
-            //$this->LoginVista();
         }
 
     }    

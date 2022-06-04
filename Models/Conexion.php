@@ -1,11 +1,13 @@
 <?php
+
 class Conexion
 {
-    private $host = 'localhost';
-    private $user = 'root';
-    private $password = '';
-    private $db = 'proyecto_php';
+    private $host;
+    private $user;
+    private $password;
+    private $db;
     private $conexion_pdo;
+
 
     /**
      * Crea la conexion con la base de datos usando PDO
@@ -14,11 +16,16 @@ class Conexion
      */
     public function __construct()
     {
+        $this->host = $_ENV["HOST"];
+        $this->user = $_ENV["USER"];
+        $this->password = $_ENV["PASSWORD"];
+        $this->db = $_ENV["DATABASE_NAME"];
+        
         $conecionString =
             'mysql:host=' .
             $this->host .
             ';dbname=' .
-            $this->db .
+            $this->db.
             ';charset=utf8';
         try {
             $this->conexion_pdo = new PDO(

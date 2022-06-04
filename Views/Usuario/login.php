@@ -15,7 +15,7 @@
         <input type="text" name="email" placeholder="Escriba su Correo Electronico">
         <br>
         <label>Contraseña: </label>
-        <input type="text" required name="contrasena" placeholder="Escibra su Contraseña" >              
+        <input type="password" required name="contrasena" placeholder="Escibra su Contraseña" >              
         <br>
         <button type="submit">Iniciar Session</button>
     </form>

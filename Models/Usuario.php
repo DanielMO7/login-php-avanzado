@@ -35,30 +35,48 @@ class Usuario
      */
     public function InsertarUsuario()
     {
-        $query = $this->conexion->prepare('SELECT COUNT(*) FROM usuarios WHERE email= ?');
+        // Valida que el email del usuario no este en la base de datos.
+
+        $query = $this->conexion->prepare(
+            'SELECT COUNT(*) FROM usuarios WHERE email= ?'
+        );
         $query->execute([$this->email]);
 
         $emailExistencia = count($query->fetchAll());
-        
-        echo $emailExistencia;
+
         if ($emailExistencia > 0) {
             return false;
-
         } else {
-            $sql = "INSERT INTO usuarios (nombre_usuario,email,documento,contrasena,rol) 
-            VALUES (:nombre_usuario,:email,:documento,:contrasena,:rol)";
+            // Valida la existencia del documento
+            $consulta_documento = $this->conexion->prepare(
+                'SELECT COUNT(*) FROM usuarios WHERE documento= ?'
+            );
+            $consulta_documento->execute([$this->documento]);
+    
+            $documento_existencia = count($consulta_documento->fetchAll());
 
-            $sentencia = $this->conexion->prepare($sql);
+            if ($documento_existencia > 0) {
+                return false;
+                
+            } else {
+                $sql = "INSERT INTO usuarios (nombre_usuario,email,documento,contrasena,rol) 
+                VALUES (:nombre_usuario,:email,:documento,:contrasena,:rol)";
 
-            $contrasena_has = password_hash($this->contrasena, PASSWORD_BCRYPT);
-            $sentencia->bindParam(':nombre_usuario', $this->nombre);
-            $sentencia->bindParam(':email', $this->email);
-            $sentencia->bindParam(':documento', $this->documento);
-            $sentencia->bindParam(':contrasena', $contrasena_has);
-            $sentencia->bindParam(':rol', $this->rol);
-            $sentencia->execute();
+                $sentencia = $this->conexion->prepare($sql);
 
-            return true;
+                $contrasena_has = password_hash(
+                    $this->contrasena,
+                    PASSWORD_BCRYPT
+                );
+                $sentencia->bindParam(':nombre_usuario', $this->nombre);
+                $sentencia->bindParam(':email', $this->email);
+                $sentencia->bindParam(':documento', $this->documento);
+                $sentencia->bindParam(':contrasena', $contrasena_has);
+                $sentencia->bindParam(':rol', $this->rol);
+                $sentencia->execute();
+
+                return true;
+            }
         }
     }
     /**
@@ -68,10 +86,12 @@ class Usuario
      */
     public function ValidarUsuario()
     {
+        // Consulta email.
         $sql = "SELECT * FROM usuarios WHERE email = '$this->email'";
         $consulta = $this->conexion->prepare($sql);
         $consulta->execute();
         $objeto_consulta = $consulta->fetchAll(PDO::FETCH_OBJ);
+
         foreach ($objeto_consulta as $usuario) {
             if (password_verify($this->contrasena, $usuario->contrasena)) {
                 $_SESSION['Usuario'] = $usuario->id;
@@ -80,7 +100,6 @@ class Usuario
                 $_SESSION['token'] = $token;
                 return true;
             } else {
-                $_SESSION['mensaje'] = 'Credenciales Incorrectas';
                 return false;
             }
         }
