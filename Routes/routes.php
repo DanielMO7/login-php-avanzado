@@ -8,7 +8,7 @@ require './Controllers/UsuarioController.php';
 
 $routes = [];
 
-// Vista Home. 
+// Vista Home.
 
 route('/login/index.php/home', function () {
     $vista = new UsuarioController();
@@ -50,7 +50,7 @@ function route(string $ruta, callable $funcion_llamada)
 run();
 
 /**
- * Evalua si la ruta enviada como parametro es igual a la ruta del navegador. 
+ * Evalua si la ruta enviada como parametro es igual a la ruta del navegador.
  * Si es asi ejecuta la funcion llamada. Si no asigna la ruta /404
  *
  * @return void
@@ -61,7 +61,7 @@ function run()
     $uri = $_SERVER['REQUEST_URI'];
     $found = false;
 
-    // Busca en el array asociativo donde se encuentre la funcion que se requiere.
+    // Busca en el array la posicion donde se encuentre la funcion que se requiere.
     foreach ($routes as $ruta => $funcion_llamada) {
         if ($ruta !== $uri) {
             continue;
@@ -74,7 +74,7 @@ function run()
     if (!$found) {
         // Asigna la ruta por default cuando esta no se encuentra en el array ruta.
         $no_funciona_llamada = $routes['/404'];
-        $no_funciona_llamada(); 
+        $no_funciona_llamada();
     }
 }
 
@@ -85,7 +85,6 @@ if (isset($_GET['action'])) {
             $instancia_controlador = new UsuarioController();
             $instancia_controlador->CerrarSession();
             break;
-
     }
 }
 // Recepciona y Envia Información por el metodo POST.
@@ -95,28 +94,34 @@ if (isset($_POST['action'])) {
         // Recepciona datos de registro del usuario y los envia el metodo GuardarInformacionEnModelo
         case 'insert':
             $instancia_controlador = new UsuarioController();
-            $instancia_controlador->GuardarInformacionEnModelo(
-                $_POST['nombre'],
-                $_POST['email'],
-                $_POST['documento'],
-                $_POST['rol'],
-                $_POST['contrasena']
-            );
-            if($instancia_controlador){
-                header('Location: /login/index.php/register');
-                
-            }else{
-                header('Location:/login/index.php/login');
+            if (
+                $instancia_controlador->GuardarInformacionEnModelo(
+                    $_POST['nombre'],
+                    $_POST['email'],
+                    $_POST['documento'],
+                    $_POST['rol'],
+                    $_POST['contrasena']
+                )
+            ) {
+                header('Location: /login/index.php/login');
+            } else {
+                header('Location:/login/index.php/register');
             }
             break;
 
         // Recibe el correo y contraseña del usuario y lo envia a VerificarLogin.
         case 'loguearse':
             $instancia_controlador = new UsuarioController();
-            $instancia_controlador->VerificarLogin(
-                $_POST['email'],
-                $_POST['contrasena']
-            );
+            if (
+                $instancia_controlador->VerificarLogin(
+                    $_POST['email'],
+                    $_POST['contrasena']
+                )
+            ) {
+                header('Location: /login/index.php/home');
+            } else {
+                header('Location: /login/index.php/login');
+            }
             break;
     }
 }

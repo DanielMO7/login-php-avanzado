@@ -1,11 +1,10 @@
 <?php
-    if(isset($_SESSION['mensaje'])){
-        echo $_SESSION['mensaje'];
-    }
-    if(isset($_SESSION['token'])){
-        header("Location:/login/index.php/home");
-    }
-    
+if (isset($_SESSION['mensaje'])) {
+    echo $_SESSION['mensaje'];
+}
+if (isset($_SESSION['token'])) {
+    header('Location:/login/index.php/home');
+}
 ?>
 <div>
 <input type="button" value="Registrarce" onclick="window.location.href='/login/index.php/register'"> 

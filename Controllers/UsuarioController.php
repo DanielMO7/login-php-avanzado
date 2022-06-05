@@ -1,13 +1,11 @@
 <?php
 
-
 require './Models/Usuario.php';
- 
+
 class UsuarioController
 {
     public function LoginVista()
     {
-        
         require './Views/Usuario/login.php';
     }
     public function RegistrarVista()
@@ -38,11 +36,17 @@ class UsuarioController
         $usuario->documento = $documento;
         $usuario->contrasena = $password;
         $usuario->rol = $rol;
-        $usuario->InsertarUsuario();
-    }    
+        //$usuario->InsertarUsuario();
+        if ($usuario->InsertarUsuario()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
-     * Verifica el email y contraseña del usuario 
+     * Verifica el email y contraseña del usuario.
+     * Muestra la vista en caso de que el correo y la contraseña sean correctos o sean in correctos.
      *
      * @param  mixed $email
      * @param  mixed $contrasena
@@ -54,28 +58,32 @@ class UsuarioController
         $usuario = new Usuario();
         $usuario->email = $email;
         $usuario->contrasena = $contrasena;
-        $informacion_usuario = $usuario->ValidarUsuario();
-        if ($informacion_usuario) {
-            header('Location: /login/index.php/home');
-        }else{
-            header('Location: /login/index.php/login');
+        if ($informacion_usuario = $usuario->ValidarUsuario()) {
+            return true;
+        } else {
+            return false;
         }
-
-    }    
+    }
     /**
      * Borra las cokies de la session y destruye la session.
      *
      * @return void
      */
-    public function CerrarSession(){
-        if (ini_get("session.use_cookies")) {
+    public function CerrarSession()
+    {
+        if (ini_get('session.use_cookies')) {
             $parametro = session_get_cookie_params();
-            setcookie(session_name(), '', time() - 42000,
-                $parametro["path"], $parametro["domain"],
-                $parametro["secure"], $parametro["httponly"]
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $parametro['path'],
+                $parametro['domain'],
+                $parametro['secure'],
+                $parametro['httponly']
             );
         }
-        
+
         session_destroy();
         header('Location: /login/index.php/login');
     }
