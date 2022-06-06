@@ -1,11 +1,15 @@
 <?php
-    session_start();
-    if(isset($_SESSION['token'])){
-        header("Location:/login/index.php/home");
-    }
-        
+session_start();
+if(isset($_SESSION['rol']) and $_SESSION['rol'] == 'Administrador'){
+    echo "Bienvenido ".$_SESSION['rol'] ." a la Editar Usuario.";
+
+    require_once('././Controllers/AdminController.php');
+
+    $usuario = new AdminController();
+    $resultado = $usuario->EditarUsuario();
+    echo $resultado;
+
 ?>
-<div>
 <input type="button" value="Iniciar Sesion" onclick="window.location.href='/login/index.php/login'"> 
     <form action="" method="POST">
         <input type="hidden" name="action" value="insert">
@@ -30,4 +34,9 @@
         <button type="submit">Guardar</button>
         <button type="">Cancelar</button>
     </form>
-</div>
+</div>  
+<?php
+}else{
+    header("Location: /login/index.php/home");
+}
+?>

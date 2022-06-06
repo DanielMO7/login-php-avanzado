@@ -3,6 +3,7 @@
 //Importamos el UsuarioController para usarlo en los isset
 
 require './Controllers/UsuarioController.php';
+require './Controllers/AdminController.php';
 
 // Retorna las vistas de cada ruta.
 
@@ -18,6 +19,22 @@ route('/login/index.php/home', function () {
 // Vista Login.
 
 route('/login/index.php/login', function () {
+    if (isset($_POST['action'])) {
+        if ($_POST['action'] == 'loguearse') {
+            // Recibe el correo y contraseña del usuario y lo envia a VerificarLogin.
+            $instancia_controlador = new UsuarioController();
+            if (
+                $instancia_controlador->VerificarLogin(
+                    $_POST['email'],
+                    $_POST['contrasena']
+                )
+            ) {
+                header('Location: /login/index.php/home');
+            } else {
+                header('Location: /login/index.php/login');
+            }
+        }
+    }
     $vista = new UsuarioController();
     $vista->LoginVista();
 });
@@ -25,6 +42,25 @@ route('/login/index.php/login', function () {
 // Vista Registro.
 
 route('/login/index.php/register', function () {
+    if (isset($_POST['action'])) {
+        if ($_POST['action'] == 'insert') {
+            // Recepciona datos de registro del usuario y los envia el metodo GuardarInformacionEnModelo
+            $instancia_controlador = new UsuarioController();
+            if (
+                $instancia_controlador->GuardarInformacionEnModelo(
+                    $_POST['nombre'],
+                    $_POST['email'],
+                    $_POST['documento'],
+                    $_POST['rol'],
+                    $_POST['contrasena']
+                )
+            ) {
+                header('Location: /login/index.php/login');
+            } else {
+                header('Location:/login/index.php/register');
+            }
+        }
+    }
     $vista = new UsuarioController();
     $vista->RegistrarVista();
 });
@@ -32,6 +68,54 @@ route('/login/index.php/register', function () {
 route('/404', function () {
     echo 'Page not found 404';
 });
+
+//---------------------------- Rutas Admin -------------------------------------------------->
+
+route('/login/index.php/admin', function () {
+    $vista = new AdminController();
+    $vista->AdminIndex();
+});
+
+route('/login/index.php/lista_usuarios', function () {
+    if (isset($_POST['action'])) {
+        switch ($_POST['action']) {
+            case 'borrar_usuario':
+                $instancia_controlador = new AdminController();
+                if($instancia_controlador->GuardarIDEliminar($_POST['id']))
+                {
+                    header('Location: /login/index.php/lista_usuarios');
+                }else{
+                    echo "No se pudo eliminar el usuario.";
+                }
+                break;
+
+            case 'editar_usuario':
+                route('/login/index.php/lista_usuarios?id='.$_POST['id'].'', function () {
+                    $vista = new AdminController();
+                    $vista->EditarVista();
+                    });
+                break;
+        }
+    }
+    $vista = new AdminController();
+    $vista->ListaVista();
+});
+
+route('/login/index.php/editar_usuarios?id', function () {
+    $vista = new AdminController();
+    $vista->EditarVista();
+});
+
+// Cierra la sesion del usuario.
+if (isset($_GET['action'])) {
+    switch ($_GET['action']) {
+        case 'cerrar_sesion':
+            $instancia_controlador = new UsuarioController();
+            $instancia_controlador->CerrarSession();
+            break;
+    }
+}
+
 
 /**
  * Guarda la ruta y la funcion que esta ejecuta.
@@ -75,54 +159,6 @@ function run()
         // Asigna la ruta por default cuando esta no se encuentra en el array ruta.
         $no_funciona_llamada = $routes['/404'];
         $no_funciona_llamada();
-    }
-}
-
-// Recepciona Información por el metodo GET.
-if (isset($_GET['action'])) {
-    switch ($_GET['action']) {
-        case 'cerrar_sesion':
-            $instancia_controlador = new UsuarioController();
-            $instancia_controlador->CerrarSession();
-            break;
-    }
-}
-// Recepciona y Envia Información por el metodo POST.
-
-if (isset($_POST['action'])) {
-    switch ($_POST['action']) {
-        // Recepciona datos de registro del usuario y los envia el metodo GuardarInformacionEnModelo
-        case 'insert':
-            $instancia_controlador = new UsuarioController();
-            if (
-                $instancia_controlador->GuardarInformacionEnModelo(
-                    $_POST['nombre'],
-                    $_POST['email'],
-                    $_POST['documento'],
-                    $_POST['rol'],
-                    $_POST['contrasena']
-                )
-            ) {
-                header('Location: /login/index.php/login');
-            } else {
-                header('Location:/login/index.php/register');
-            }
-            break;
-
-        // Recibe el correo y contraseña del usuario y lo envia a VerificarLogin.
-        case 'loguearse':
-            $instancia_controlador = new UsuarioController();
-            if (
-                $instancia_controlador->VerificarLogin(
-                    $_POST['email'],
-                    $_POST['contrasena']
-                )
-            ) {
-                header('Location: /login/index.php/home');
-            } else {
-                header('Location: /login/index.php/login');
-            }
-            break;
     }
 }
 

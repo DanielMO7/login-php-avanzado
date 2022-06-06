@@ -5,7 +5,6 @@ require './Controllers/IniciadorContoller.php';
 
 // Inicia el session_star
 
-$ics = new IniciadorContoller();
 
 class Usuario
 {
@@ -36,24 +35,19 @@ class Usuario
      */
     public function InsertarUsuario()
     {
-        //Valida que el email del usuario no este en la base de datos.
+        //Valida que el email y el documento del usuario no este en la base de datos.
 
         $stmt = $this->conexion->prepare(
-            'SELECT COUNT(*) FROM usuarios WHERE email= ?'
+            'SELECT COUNT(*) FROM usuarios WHERE email= :email OR documento = :documento'
         );
-        $stmt->execute([$this->email]);
+        $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':documento', $this->documento);
+        $stmt->execute();
 
-        $emailExistencia = $stmt->fetchColumn();
+        $email_documentoExistencia = $stmt->fetchColumn();
+        //return $emailExistencia;
 
-        // Valida la existencia del documento
-        $consulta_documento = $this->conexion->prepare(
-            'SELECT COUNT(*) FROM usuarios WHERE documento= ?'
-        );
-        $consulta_documento->execute([$this->documento]);
-
-        $documento_existencia = $consulta_documento->fetchColumn();
-
-        if ($emailExistencia != 0 or $documento_existencia != 0) {
+        if ($email_documentoExistencia != 0) {
             return false;
         } else {
             $sql = "INSERT INTO usuarios (nombre_usuario,email,documento,contrasena,rol)
@@ -87,6 +81,8 @@ class Usuario
 
         foreach ($objeto_consulta as $usuario) {
             if (password_verify($this->contrasena, $usuario->contrasena)) {
+                $ics = new IniciadorContoller();
+                
                 $_SESSION['Usuario'] = $usuario->id;
                 $_SESSION['rol'] = $usuario->rol;
                 $token = bin2hex(random_bytes((20 - (20 % 2)) / 2));

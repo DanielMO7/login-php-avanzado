@@ -36,12 +36,7 @@ class UsuarioController
         $usuario->documento = $documento;
         $usuario->contrasena = $password;
         $usuario->rol = $rol;
-        //$usuario->InsertarUsuario();
-        if ($usuario->InsertarUsuario()) {
-            return true;
-        } else {
-            return false;
-        }
+        return $usuario->InsertarUsuario();
     }
 
     /**
@@ -58,11 +53,8 @@ class UsuarioController
         $usuario = new Usuario();
         $usuario->email = $email;
         $usuario->contrasena = $contrasena;
-        if ($informacion_usuario = $usuario->ValidarUsuario()) {
-            return true;
-        } else {
-            return false;
-        }
+        
+        return $usuario->ValidarUsuario();
     }
     /**
      * Borra las cokies de la session y destruye la session.
@@ -88,8 +80,4 @@ class UsuarioController
         header('Location: /login/index.php/login');
     }
 }
-/*
-enviroment - Investigar
-cerrar instancia - php cierra automatico las intancias
-cambiar routes */
 ?>
