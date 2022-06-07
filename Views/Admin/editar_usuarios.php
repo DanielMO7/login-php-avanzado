@@ -1,15 +1,16 @@
 <?php
 session_start();
-if(isset($_SESSION['rol']) and $_SESSION['rol'] == 'Administrador'){
-    echo "Bienvenido ".$_SESSION['rol'] ." a la Editar Usuario.";
+if (isset($_SESSION['rol']) and $_SESSION['rol'] == 'Administrador') {
 
-    require_once('././Controllers/AdminController.php');
+    echo 'Bienvenido ' . $_SESSION['rol'] . ' a la Editar Usuario.';
+
+    require_once '././Controllers/AdminController.php';
 
     $usuario = new AdminController();
-    $resultado = $usuario->EditarUsuario();
-    echo $resultado;
+    $resultado = $usuario->EditarUsuario($_GET['id']);
 
-?>
+    var_dump($resultado);
+    ?>
 <input type="button" value="Iniciar Sesion" onclick="window.location.href='/login/index.php/login'"> 
     <form action="" method="POST">
         <input type="hidden" name="action" value="insert">
@@ -36,7 +37,7 @@ if(isset($_SESSION['rol']) and $_SESSION['rol'] == 'Administrador'){
     </form>
 </div>  
 <?php
-}else{
-    header("Location: /login/index.php/home");
+} else {
+    header('Location: /login/index.php/home');
 }
 ?>

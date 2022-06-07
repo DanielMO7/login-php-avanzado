@@ -81,30 +81,38 @@ route('/login/index.php/lista_usuarios', function () {
         switch ($_POST['action']) {
             case 'borrar_usuario':
                 $instancia_controlador = new AdminController();
-                if($instancia_controlador->GuardarIDEliminar($_POST['id']))
-                {
+                if ($instancia_controlador->GuardarIDEliminar($_POST['id'])) {
                     header('Location: /login/index.php/lista_usuarios');
-                }else{
-                    echo "No se pudo eliminar el usuario.";
+                } else {
+                    echo 'No se pudo eliminar el usuario.';
                 }
-                break;
-
-            case 'editar_usuario':
-                route('/login/index.php/lista_usuarios?id='.$_POST['id'].'', function () {
-                    $vista = new AdminController();
-                    $vista->EditarVista();
-                    });
                 break;
         }
     }
+    // if (isset($_GET['action'])) {
+    //     switch ($_GET['action']) {
+    //         case 'editar_usuario':
+
+    //             );
+    //             break;
+    //     }
+    // }
     $vista = new AdminController();
     $vista->ListaVista();
 });
 
-route('/login/index.php/editar_usuarios?id', function () {
-    $vista = new AdminController();
-    $vista->EditarVista();
-});
+route(
+    '/login/index.php/lista_usuarios?action=editar_usuario&id=' . $_GET['id'],
+    function () {
+        $vista = new AdminController();
+        $vista->EditarVista();
+    }
+);
+
+// route('/login/index.php/editar_usuarios?id=' . $_POST['id'], function () {
+//     $vista = new AdminController();
+//     $vista->EditarVista();
+// });
 
 // Cierra la sesion del usuario.
 if (isset($_GET['action'])) {
@@ -115,7 +123,6 @@ if (isset($_GET['action'])) {
             break;
     }
 }
-
 
 /**
  * Guarda la ruta y la funcion que esta ejecuta.
@@ -144,7 +151,7 @@ function run()
     global $routes;
     $uri = $_SERVER['REQUEST_URI'];
     $found = false;
-
+    //var_dump($routes);
     // Busca en el array la posicion donde se encuentre la funcion que se requiere.
     foreach ($routes as $ruta => $funcion_llamada) {
         if ($ruta !== $uri) {
