@@ -89,30 +89,56 @@ route('/login/index.php/lista_usuarios', function () {
                 break;
         }
     }
-    // if (isset($_GET['action'])) {
-    //     switch ($_GET['action']) {
-    //         case 'editar_usuario':
-
-    //             );
-    //             break;
-    //     }
-    // }
     $vista = new AdminController();
     $vista->ListaVista();
 });
 
-route(
-    '/login/index.php/lista_usuarios?action=editar_usuario&id=' . $_GET['id'],
-    function () {
-        $vista = new AdminController();
-        $vista->EditarVista();
-    }
-);
+if(isset($_GET['action']) and $_GET['action'] == 'editar_usuario') {
+    route('/login/index.php/lista_usuarios?action=editar_usuario&id=' . $_GET['id'],function () {
+            $vista = new AdminController();
+            $vista->EditarVista();
+        }
+    );
+    if (isset($_POST['action']) and $_POST['action'] == 'guardar_edicion_usuarios'){
+        session_start();
+        if($_SESSION['rol'] == "Administrador"){
+            route('/login/index.php/lista_usuarios?action=editar_usuario&id='. $_GET['id'], function (){
+                $instancia_controlador = new AdminController();
+                $resultado = $instancia_controlador->EnviarDatosActualizar(
+                        $_GET['id'],
+                        $_POST['nombre'],
+                        $_POST['documento'],
+                        $_POST['email'],
+                        $_POST['rol']
+                );
+                
+                if($resultado == 1){
+                    header('Location: /login/index.php/lista_usuarios');
+                }else{
+                    if ($resultado = "email_existente"){
+                        $mensaje = "El correo que ingresaste ya existe.";
+                        include './Views/Admin/editar_usuarios.php';
+                        
+                    }
+                }
+            
 
-// route('/login/index.php/editar_usuarios?id=' . $_POST['id'], function () {
-//     $vista = new AdminController();
-//     $vista->EditarVista();
-// });
+                // $instancia_controlador->EnviarDatosActualizar(
+                //     $_GET['id'],
+                //     $_POST['nombre'],
+                //     $_POST['documento'],
+                //     $_POST['email'],
+                //     $_POST['rol']
+                // );
+                    
+                //header('Location: /login/index.php/lista_usuarios?action=editar_usuario&id='. $_GET['id']);
+                    
+        });    
+    }
+}
+}
+
+
 
 // Cierra la sesion del usuario.
 if (isset($_GET['action'])) {
