@@ -1,13 +1,20 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE ){
+// Verifica si existe una session, si no exsite la crea  si ya existe no la crea.
+if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
+/**
+ * Verifica que el rol del usuario sea administrador para que pueda acceder a esta vista.
+ */
 if (isset($_SESSION['rol']) and $_SESSION['rol'] == 'Administrador') {
 
     echo 'Bienvenido ' . $_SESSION['rol'] . ' a la Lista de Usuarios.';
 
     require_once '././Controllers/AdminController.php';
 
+    /**
+     * Se invoca una funcion que permite traer los datos del los usuarios.
+     */
     $lista_usuarios = new AdminController();
     $usuarios = $lista_usuarios->ListaUsuarios();
     ?>

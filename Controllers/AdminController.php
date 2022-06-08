@@ -16,7 +16,7 @@ class AdminController
     {
         require './Views/Admin/editar_usuarios.php';
     }
-    
+
     /**
      * Funcion que trae todos los usuarios almacenados en la base de datos.
      *
@@ -27,27 +27,55 @@ class AdminController
         $usuarios = new Admin();
         return $usuarios->TraerUsuarios();
     }
-        
+
     /**
-     * Funcion que envia el id que se desea eliminar y trae el resultado.
+     * Envia el id que se desea eliminar retorna el resultado.
      *
      * @param  mixed $id
-     * @return true|false 
+     * @return true|false True si el dato se pudo eliminar correctamente | False si no se pudo eliminar correctamente.
      */
     public function GuardarIDEliminar($id)
     {
         $usuario = new Admin();
         return $usuario->EliminarUsuario($id);
     }
+
+    /**
+     * Se envia el id del usuario a editar y trae una lista con los elementos del usuario.
+     *
+     * @param mixed $id
+     * @return array Lista de elementos del id que se envio del usuario.
+     */
     public function EditarUsuario($id)
     {
         $usuario = new Admin();
         return $usuario->EditarLista($id);
     }
-    public function EnviarDatosActualizar($id, $nombre,  $email,$documento, $rol){
+
+    /**
+     * Envia los datos que se desean actualizar de un usuario.
+     *
+     * @param int $id
+     * @param string $nombre
+     * @param string $email
+     * @param int $documento
+     * @param string $rol
+     * @return true|false Retorna true si se actualizaron los datos y false si ocurrio algun inconveniente.
+     */
+    public function EnviarDatosActualizar(
+        $id,
+        $nombre,
+        $email,
+        $documento,
+        $rol
+    ) {
         $usuario = new Admin();
-        return $usuario->ActualizarTabla($id, $nombre, $email,$documento, $rol);
-
-
+        return $usuario->ActualizarTabla(
+            $id,
+            $nombre,
+            $email,
+            $documento,
+            $rol
+        );
     }
 }

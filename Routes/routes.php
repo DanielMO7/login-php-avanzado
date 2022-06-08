@@ -65,17 +65,27 @@ route('/login/index.php/register', function () {
     $vista->RegistrarVista();
 });
 
+// Vista en caso de que no encuentre la URL
+
 route('/404', function () {
     echo 'Page not found 404';
 });
 
-//---------------------------- Rutas Admin -------------------------------------------------->
+/**
+ * ---------------------------- Rutas Admin -------------------------------------------------->
+ */
 
+/**
+ * Retorna la vista principal de Admin.
+ */
 route('/login/index.php/admin', function () {
     $vista = new AdminController();
     $vista->AdminIndex();
 });
 
+/**
+ * Metodo POST que permite eliminar un usuario. Retorna la vista Lista de Usuarios.
+ */
 route('/login/index.php/lista_usuarios', function () {
     if (isset($_POST['action'])) {
         switch ($_POST['action']) {
@@ -92,53 +102,56 @@ route('/login/index.php/lista_usuarios', function () {
     $vista = new AdminController();
     $vista->ListaVista();
 });
-
-if(isset($_GET['action']) and $_GET['action'] == 'editar_usuario') {
-    route('/login/index.php/lista_usuarios?action=editar_usuario&id=' . $_GET['id'],function () {
+/**
+ * Metodo POST que permite aditar un usuario. Y retorna la vista editar usuario.
+ */
+if (isset($_GET['action']) and $_GET['action'] == 'editar_usuario') {
+    // Se toma de la url el id que se desea editar.
+    route(
+        '/login/index.php/lista_usuarios?action=editar_usuario&id=' .
+            $_GET['id'],
+        function () {
             $vista = new AdminController();
             $vista->EditarVista();
         }
     );
-    if (isset($_POST['action']) and $_POST['action'] == 'guardar_edicion_usuarios'){
+
+    /**
+     * Metodo POST que permite enviar los parametros para actualizar los datos del usuario.
+     */
+    if (
+        isset($_POST['action']) and
+        $_POST['action'] == 'guardar_edicion_usuarios'
+    ) {
         session_start();
-        if($_SESSION['rol'] == "Administrador"){
-            route('/login/index.php/lista_usuarios?action=editar_usuario&id='. $_GET['id'], function (){
-                $instancia_controlador = new AdminController();
-                $resultado = $instancia_controlador->EnviarDatosActualizar(
+        if ($_SESSION['rol'] == 'Administrador') {
+            route(
+                '/login/index.php/lista_usuarios?action=editar_usuario&id=' .
+                    $_GET['id'],
+                function () {
+                    $instancia_controlador = new AdminController();
+                    $resultado = $instancia_controlador->EnviarDatosActualizar(
                         $_GET['id'],
                         $_POST['nombre'],
                         $_POST['documento'],
                         $_POST['email'],
                         $_POST['rol']
-                );
-                
-                if($resultado == 1){
-                    header('Location: /login/index.php/lista_usuarios');
-                }else{
-                    if ($resultado = "email_existente"){
-                        $mensaje = "El correo que ingresaste ya existe.";
-                        include './Views/Admin/editar_usuarios.php';
-                        
+                    );
+
+                    if ($resultado == 1) {
+                        header('Location: /login/index.php/lista_usuarios');
+                    } else {
+                        if ($resultado = 'email_existente') {
+                            $mensaje =
+                                'El correo o documento que ingresaste ya existe.';
+                            include './Views/Admin/editar_usuarios.php';
+                        }
                     }
                 }
-            
-
-                // $instancia_controlador->EnviarDatosActualizar(
-                //     $_GET['id'],
-                //     $_POST['nombre'],
-                //     $_POST['documento'],
-                //     $_POST['email'],
-                //     $_POST['rol']
-                // );
-                    
-                //header('Location: /login/index.php/lista_usuarios?action=editar_usuario&id='. $_GET['id']);
-                    
-        });    
+            );
+        }
     }
 }
-}
-
-
 
 // Cierra la sesion del usuario.
 if (isset($_GET['action'])) {
