@@ -124,7 +124,7 @@ class Admin
          */
         if (count($documentoExistencia) > 0) {
             if ($documentoExistencia[0]['id'] != $id) {
-                return 'documento_existente.';
+                return 'documento_existente';
             } else {
                 $documentoExistencia = false;
             }

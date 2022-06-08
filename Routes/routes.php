@@ -244,7 +244,7 @@ route('/login/index.php/lista_usuarios', function () {
     $vista->ListaVista();
 });
 /**
- * Metodo POST que permite aditar un usuario. Y retorna la vista editar usuario.
+ * Metodo POST que permite editar un usuario. Y retorna la vista editar usuario.
  */
 if (isset($_GET['action']) and $_GET['action'] == 'editar_usuario') {
     // Se toma de la url el id que se desea editar.
@@ -278,15 +278,15 @@ if (isset($_GET['action']) and $_GET['action'] == 'editar_usuario') {
                         $_POST['email'],
                         $_POST['rol']
                     );
-
                     if ($resultado == 1) {
                         header('Location: /login/index.php/lista_usuarios');
                     } else {
                         if ($resultado == 'email_existente') {
                             $mensaje =
                                 'El correo que ingresaste ya se encuentra registrado.';
-                            include './Views/Admin/editar_usuarios.php';
+                                include './Views/Admin/editar_usuarios.php';
                         }elseif($resultado == 'documento_existente'){
+                            $mensaje =
                             'El documento que ingresaste ya se encuentra registrado';
                             include './Views/Admin/editar_usuarios.php';
                         }
