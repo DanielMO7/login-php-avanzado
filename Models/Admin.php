@@ -74,8 +74,8 @@ class Admin
      * @param int $documento
      * @param string $email
      * @param string $rol
-     * @return true|false| True si se pudo actualizar correctamente el usaurio. False si no se pudo actualizar
-     * algun dato.
+     * @return true|false| True si se pudo actualizar correctamente el usaurio. False si no se pudo 
+     * actualizar algun dato.
      *
      */
     public function ActualizarTabla($id, $nombre, $documento, $email, $rol)

@@ -19,51 +19,192 @@ route('/login/index.php/home', function () {
 // Vista Login.
 
 route('/login/index.php/login', function () {
-    if (isset($_POST['action'])) {
-        if ($_POST['action'] == 'loguearse') {
-            // Recibe el correo y contraseña del usuario y lo envia a VerificarLogin.
-            $instancia_controlador = new UsuarioController();
-            if (
-                $instancia_controlador->VerificarLogin(
-                    $_POST['email'],
-                    $_POST['contrasena']
-                )
-            ) {
-                header('Location: /login/index.php/home');
-            } else {
-                header('Location: /login/index.php/login');
-            }
-        }
-    }
     $vista = new UsuarioController();
     $vista->LoginVista();
+    
 });
+
+
+/**
+ * Valida la existencia de un meotdo POST para loguearse, envia los parametros y segun lo que se
+ * retorne evalua si muestra una vista o un mensaje especificando lo sucedido.
+ * 
+ */
+if (isset($_POST['action']) and $_POST['action'] == 'loguearse') {
+    route('/login/index.php/login', function () {        
+            $instancia_controlador = new UsuarioController();
+            $resultado = $instancia_controlador->VerificarLogin($_POST['email'], $_POST['contrasena']);
+            //var_dump($resultado);
+            if ($resultado == 1) {
+                header('Location: /login/index.php/home');
+
+            }elseif($resultado = "credenciales_incorrectas");
+            {
+                $mensaje = "Usuario o Contraseña Incorrectos";
+                include './Views/Usuario/login.php';
+            }
+    
+        }
+);
+}
 
 // Vista Registro.
 
 route('/login/index.php/register', function () {
-    if (isset($_POST['action'])) {
-        if ($_POST['action'] == 'insert') {
-            // Recepciona datos de registro del usuario y los envia el metodo GuardarInformacionEnModelo
-            $instancia_controlador = new UsuarioController();
-            if (
-                $instancia_controlador->GuardarInformacionEnModelo(
-                    $_POST['nombre'],
-                    $_POST['email'],
-                    $_POST['documento'],
-                    $_POST['rol'],
-                    $_POST['contrasena']
-                )
-            ) {
-                header('Location: /login/index.php/login');
-            } else {
-                header('Location:/login/index.php/register');
-            }
-        }
-    }
     $vista = new UsuarioController();
     $vista->RegistrarVista();
+    
 });
+
+/**
+ * Valida la existencia de un meotdo POST para insert, envia los parametros y segun lo que se
+ * retorne evalua si muestra una vista o un mensaje especificando lo sucedido.
+ * 
+ */
+if (isset($_POST['action']) and $_POST['action'] == 'insert') {
+        route('/login/index.php/register', function () {
+        // Recepciona datos de registro del usuario y los envia el metodo GuardarInformacionEnModelo
+        $instancia_controlador = new UsuarioController();
+        $resultado = $instancia_controlador->GuardarInformacionEnModelo(
+            $_POST['nombre'],
+            $_POST['email'],
+            $_POST['documento'],
+            $_POST['rol'],
+            $_POST['contrasena']
+        );
+        if ($resultado == 1)
+        {
+            header('Location: /login/index.php/login');
+        }elseif($resultado == "credenciales_existen") {
+            $mensaje = "El documento o correo ya se encuentran registrados.";
+            include './Views/Usuario/register.php';
+            }
+        }
+    );
+}
+
+
+// Vista Editar Perfil 
+route('/login/index.php/perfil', function (){
+    $vista = new UsuarioController();
+    $vista->PerfiUsuarios();
+});
+
+/**
+ * Metodo get que permite editar un usuario. Y retorna la vista editar usuario.
+ */
+if (isset($_GET['action']) and $_GET['action'] == 'editar_perfil') {
+    // Se toma de la url el id que se desea editar.
+    route(
+        '/login/index.php/perfil?action=editar_perfil&id=' .
+            $_GET['id'],
+        function () {
+            $vista = new UsuarioController();
+            $vista->EditarVista();
+        }
+    );
+
+    /**
+     * Metodo POST que permite enviar los parametros para actualizar los datos del usuario.
+     */
+    if (
+        isset($_POST['action']) and
+        $_POST['action'] == 'guardar_edicion_perfil'
+    ) {
+            route(
+                '/login/index.php/perfil?action=editar_perfil&id=' .
+                    $_GET['id'],
+                function () {
+                    $instancia_controlador = new UsuarioController();
+                    $resultado = $instancia_controlador->EnviarDatosActualizar(
+                        $_GET['id'],
+                        $_POST['nombre'],
+                        $_POST['documento'],
+                        $_POST['email']
+                    );
+
+                    if ($resultado == 1) {
+                        header('Location: /login/index.php/perfil');
+                    } else {
+                        if ($resultado == 'email_existente') {
+                            $mensaje = 'El correo que ingresaste ya se encuentra registrado.';
+                            
+                            include './Views/Usuario/editar_perfil_usuario.php';
+
+                        }elseif($resultado == 'documento_existente'){
+                            $mensaje =
+                                    'El documento que ingresaste ya se encuentra registrado';
+
+                            include './Views/Usuario/editar_perfil_usuario.php';
+                            }
+                        }
+                    }
+            );
+        
+    }
+}
+
+// Vista Cambiar Contraseña
+
+/**
+ * Valida la existencia de un meotdo GET para cambiar_contrasena, envia los parametros y segun 
+ * lo que se retorne evalua si muestra una vista o un mensaje especificando lo sucedido.
+ * 
+ */
+if (isset($_GET['action']) and $_GET['action'] == 'cambiar_contrasena') {
+    // Se toma de la url el id que se desea editar.
+    route(
+        '/login/index.php/perfil?action=cambiar_contrasena&id=' .
+            $_GET['id'],
+        function () {
+            $vista = new UsuarioController();
+            $vista->CambiarContrasenaVista();
+        }
+    );
+/**
+ * Envia los parametros de un Metodo POST guardar_contrasena, segun la respuesta muestra una vista 
+ * un mensaje.
+ */
+    if (
+        isset($_POST['action']) and
+        $_POST['action'] == 'guardar_contrasena'
+    ) {
+            route(
+                '/login/index.php/perfil?action=cambiar_contrasena&id=' .
+            $_GET['id'],
+                function () {
+                
+                    $instancia_controlador = new UsuarioController();
+                    $resultado = $instancia_controlador->EnviarContrasenas(
+                        $_GET['id'],
+                        $_POST['contrasena_anterior'],
+                        $_POST['contrasena_nueva'],
+                        $_POST['contrasena_verificar']
+                    );
+
+                    if ($resultado == 1) {
+                        header('Location: /login/index.php/lista_usuarios');
+                    } else {
+                        if ($resultado == 'contrasena_incorrecta') {
+                            $mensaje =
+                                'La contrasena que ingresaste no es correcta.';
+                                include './Views/Usuario/cambiar_contrasena.php';
+
+                        }elseif($resultado == 'id_no_coincide'){
+                            $mensaje =
+                                'No puedes realizar esta accion';
+                                include './Views/Usuario/cambiar_contrasena.php';
+
+                        }elseif($resultado == 'contasena_no_coincide'){
+                            $mensaje = 'Las contraseñas no coinciden';
+                            include './Views/Usuario/cambiar_contrasena.php';
+                        }
+                    }
+                }
+            );
+        
+    }
+}
 
 // Vista en caso de que no encuentre la URL
 
@@ -141,9 +282,12 @@ if (isset($_GET['action']) and $_GET['action'] == 'editar_usuario') {
                     if ($resultado == 1) {
                         header('Location: /login/index.php/lista_usuarios');
                     } else {
-                        if ($resultado = 'email_existente') {
+                        if ($resultado == 'email_existente') {
                             $mensaje =
-                                'El correo o documento que ingresaste ya existe.';
+                                'El correo que ingresaste ya se encuentra registrado.';
+                            include './Views/Admin/editar_usuarios.php';
+                        }elseif($resultado == 'documento_existente'){
+                            'El documento que ingresaste ya se encuentra registrado';
                             include './Views/Admin/editar_usuarios.php';
                         }
                     }

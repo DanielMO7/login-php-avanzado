@@ -8,7 +8,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
  */
 if (isset($_SESSION['rol']) and $_SESSION['rol'] == 'Administrador') {
 
-    echo 'Bienvenido ' . $_SESSION['rol'] . ' a la Lista de Usuarios.';
+    echo '<h2>Bienvenido ' . $_SESSION['rol'] . ' a la Lista de Usuarios.</h2>';
 
     require_once '././Controllers/AdminController.php';
 
@@ -18,7 +18,8 @@ if (isset($_SESSION['rol']) and $_SESSION['rol'] == 'Administrador') {
     $lista_usuarios = new AdminController();
     $usuarios = $lista_usuarios->ListaUsuarios();
     ?>
-<h2>Lista De Usuarios</h2>      
+<h2>Lista De Usuarios</h2>
+<input type="button" value="cerrar sesion" onclick="window.location.href='/login/index.php?action=cerrar_sesion'">     
     <table>
         <thead>
             <tr>

@@ -1,9 +1,15 @@
 <?php
+if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
+}
     if(isset($_SESSION['token'])){
         header("Location:/login/index.php/home");
     }
-        
+    
+    // Muestra un mensaje en caso de que exista alun error o inconveniente.
+    if (isset($mensaje)) {
+        echo $mensaje;
+    }
 ?>
 <div>
 <input type="button" value="Iniciar Sesion" onclick="window.location.href='/login/index.php/login'"> 
@@ -28,6 +34,7 @@
         </select>
         <br>
         <button type="submit">Guardar</button>
-        <button type="">Cancelar</button>
+        <button type="button" onclick="window.location.href='/login/index.php/login'">Cancelar</button>
+   
     </form>
 </div>

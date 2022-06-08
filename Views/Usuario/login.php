@@ -1,11 +1,16 @@
 <?php
-session_start();
-if (isset($_SESSION['mensaje'])) {
-    echo $_SESSION['mensaje'];
+// Verifica si existe una session, si no exsite la crea  si ya existe no la crea.
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
 }
+
 if (isset($_SESSION['token'])) {
     header('Location:/login/index.php/home');
 }
+    // Muestra un mensaje en caso de que exista alun error o inconveniente.
+    if (isset($mensaje)) {
+        echo $mensaje;
+    }
 ?>
 <div>
 <input type="button" value="Registrarce" onclick="window.location.href='/login/index.php/register'"> 

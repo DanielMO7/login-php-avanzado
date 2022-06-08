@@ -3,14 +3,9 @@
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
-
-/**
- * Verifica que el rol del usuario sea administrador para que pueda acceder a esta vista.
- */
-if (isset($_SESSION['rol']) and $_SESSION['rol'] == 'Administrador') {
-    echo '<h2>Bienvenido ' . $_SESSION['rol'] . ' a Editar Usuario.</h2>';
+if (isset($_SESSION['token'])) {
     
-    // Muestra un mensaje en caso de que exista.
+    // Muestra un mensaje en caso de que exista alun error o inconveniente.
     if (isset($mensaje)) {
         echo $mensaje;
     }
@@ -18,13 +13,14 @@ if (isset($_SESSION['rol']) and $_SESSION['rol'] == 'Administrador') {
     /**
      * Se invoca Una funcion que permite traer los datos del usuario que se desea actualizar.
      */
-    require_once '././Controllers/AdminController.php';
-    $usuario = new AdminController();
+    require_once '././Controllers/UsuarioController.php';
+    $usuario = new UsuarioController();
     $resultados = $usuario->EditarUsuario($_GET['id']);
 
     foreach ($resultados as $resultado) { ?> 
+    <h2>Editar Perfil</h2>
     <form action="" method="POST">
-        <input type="hidden" name="action" value="guardar_edicion_usuarios">
+        <input type="hidden" name="action" value="guardar_edicion_perfil">
         <label for="nombre" >Nombre: </label>
         <input type="text" name="nombre" value="<?php echo $resultado[
             'nombre_usuario'
@@ -40,18 +36,13 @@ if (isset($_SESSION['rol']) and $_SESSION['rol'] == 'Administrador') {
             'email'
         ]; ?>" placeholder="Escriba su Correo Electronico">
         <br>
-        <label for="rol">Rol: </label>
-        <select name="rol">              
-            <option value="Administrador">Administrador</option>
-            <option value="Empleado">Empleado</option>
-        </select>
-        <br>
         <button type="submit">Guardar</button>
-        <button type="button" onclick="window.location.href='/login/index.php/lista_usuarios'">Cancelar</button>
+        <button type="button" onclick="window.location.href='/login/index.php/perfil'">Cancelar</button>
     </form>
-</div>  
-<?php }
+</div> 
+<?php 
+    }
 } else {
-    header('Location: /login/index.php/home');
+    header('Location: /login/index.php/login');
 }
 ?>
