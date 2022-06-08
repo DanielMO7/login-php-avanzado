@@ -111,6 +111,8 @@ if (isset($_GET['action']) and $_GET['action'] == 'editar_perfil') {
         isset($_POST['action']) and
         $_POST['action'] == 'guardar_edicion_perfil'
     ) {
+        session_start();
+        if ($_SESSION['Usuario'] == $_GET['id']) {
             route(
                 '/login/index.php/perfil?action=editar_perfil&id=' .
                     $_GET['id'],
@@ -140,7 +142,7 @@ if (isset($_GET['action']) and $_GET['action'] == 'editar_perfil') {
                         }
                     }
             );
-        
+        }
     }
 }
 
