@@ -23,8 +23,9 @@ if (isset($_SESSION['rol']) and $_SESSION['rol'] == 'Administrador') {
     $resultados = $usuario->EditarUsuario($_GET['id']);
 
     foreach ($resultados as $resultado) { ?> 
-    <form action="" method="POST">
+    <form action="editar_usuario/guardar_edicion_usuarios" method="POST">
         <input type="hidden" name="action" value="guardar_edicion_usuarios">
+        <input type="hidden" name="id" value="<?php echo $resultado['id']?>">
         <label for="nombre" >Nombre: </label>
         <input type="text" name="nombre" value="<?php echo $resultado[
             'nombre_usuario'

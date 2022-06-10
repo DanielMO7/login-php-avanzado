@@ -15,6 +15,7 @@ class Usuario
     public $contrasena;
     public $rol;
     public $conexion;
+    public $conexion_pdo;
 
     /**
      * Crea la conexión con la base de datos.
@@ -25,8 +26,9 @@ class Usuario
     {
         $this->conexion = new Conexion();
         $this->conexion = $this->conexion->ConexionRetornada();
-    }
+        return $this->conexion;
 
+    }
     /**
      * Función que inserta el usuario en la base de datos.
      *

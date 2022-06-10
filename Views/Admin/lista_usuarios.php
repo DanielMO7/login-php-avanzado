@@ -38,8 +38,8 @@ if (isset($_SESSION['rol']) and $_SESSION['rol'] == 'Administrador') {
                <td><?php echo $usuario['email']; ?></td>
                <td><?php echo $usuario['rol']; ?></td>
                <td>
-               <form action="" method="GET">
-                <input type="hidden" name="action" value="editar_usuario">
+               <form action="lista_usuarios/editar_usuario" method="GET">
+                <!--<input type="hidden" name="action" value="">-->
                 <input type="hidden" name="id" value="<?php echo $usuario[
                     'id'
                 ]; ?>">
@@ -48,7 +48,7 @@ if (isset($_SESSION['rol']) and $_SESSION['rol'] == 'Administrador') {
                 
                 <td>
                </form>
-                <form action="" method="POST">
+                <form action="lista_usuarios/borrar_usuario" method="POST">
                 <input type="hidden" name="action" value="borrar_usuario">
                 <input type="hidden" name="id" value="<?php echo $usuario[
                     'id'
