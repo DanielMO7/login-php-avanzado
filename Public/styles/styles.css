@@ -1,0 +1,524 @@
+/*Inicio Fuentes*/
+@font-face {
+    font-family: "webSimbolsRegular";
+    src: url(fonts/websymbols-regular-webfont.eot);
+    src: url(fonts/websymbols-regular-webfont.eot?#iefix) format('embedded-opentype'),
+        url(fonts/websymbols-regular-webfont.woff) format('woff'),
+        url(fonts/websymbols-regular-webfont.ttf) format('truetype'),
+        url(fonts/websymbols-regular-webfont.svg#WebSymbolsRegular) format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "BebasNeue";
+    src: url(fonts/BebasNeue.otf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "webSimbolsRegular";
+    src: url(fonts/websymbols-regular-webfont.eot);
+    src: url(fonts/websymbols-regular-webfont.eot?#iefix) format('embedded-opentype'),
+        url(fonts/websymbols-regular-webfont.woff) format('woff'),
+        url(fonts/websymbols-regular-webfont.ttf) format('truetype'),
+        url(fonts/websymbols-regular-webfont.svg#WebSymbolsRegular) format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@1,700&display=swap');
+
+/*Fin Fuentes*/
+
+
+/*Inicio Estilos Generales*/
+* {
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/*Fin Estilos Generales*/
+
+
+/*Inicio Container*/
+
+#container {
+    width: 95%;
+    height: auto;
+    margin: 0px auto;
+    border: 1px solid rgba(225, 225, 226, 0.8);
+    box-shadow: 0px 0px 10px #ccc;
+
+
+    min-height: 600px;
+    background: #f8f9f9;
+}
+
+/*Inicio Cabecera*/
+
+#header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+
+    height: 65px;
+    border-bottom: 1px solid rgba(225, 225, 226, 0.8);
+}
+
+.logo-bilioteca {
+    flex-grow: 0;
+    flex-basis: 1%;
+    font-family: "webSimbolsRegular";
+    font-weight: 100;
+    font-size: 15px;
+    padding: 0px;
+    margin-left: 21px;
+    color: #03363d;
+}
+
+.logo-bilioteca h2 {
+    font-family: "webSimbolsRegular";
+}
+
+.logo-bilioteca label {
+    font-family: "webSimbolsRegular";
+}
+
+
+.logo-bilioteca h2:hover {
+    color: #A52A2A;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    flex-basis: 40%;
+
+    font-weight: 900;
+    font-size: 15px;
+    padding: 0px;
+    margin-left: 6px;
+    color: #03363d;
+    text-shadow: 1px 1px #ccc;
+    text-transform: none;
+
+}
+
+.logo h1 {
+    font-family: Helvetica, sans-serif;
+    font-weight: 900;
+    font-size: 30px;
+}
+
+.logo a {
+    text-decoration: none;
+    color: #03363d;
+}
+
+.logo a:hover {
+    color: #A52A2A;
+}
+
+#menu {
+    flex-grow: 1;
+    flex-basis: 30%;
+    height: 100%;
+    padding-right: 20px;
+}
+
+#menu>ul {
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 100%;
+    list-style: none;
+}
+
+#menu a {
+    color: #444;
+    text-transform: none;
+    padding: 15px;
+    transition: all 300ms;
+}
+
+#menu a:hover {
+    background: #A52A2A;
+    color: white;
+}
+
+/*Fin cabecera*/
+
+/*Banner*/
+#banner {
+    width: 95%;
+    height: 200px;
+    box-shadow: 0px 0px 2px gray;
+    background: url(../img/books-g9d4040271_1920.jpg);
+    background-position: -341px -395px;
+    margin: 20px auto;
+    animation: backBanner 5s linear;
+    overflow: hidden;
+}
+
+@keyframes backBanner {
+    0% {
+        background-position: 0px 0px;
+    }
+
+    100% {
+        background-position: -341px -395px;
+    }
+}
+
+#banner h1 {
+    display: block;
+    width: 850px;
+    font-family: "'PT Serif', serif;";
+    color: white;
+    font-size: 45px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    margin: 27px auto;
+    text-transform: none;
+    text-shadow: 2px 2px 1px black;
+    text-align: center;
+    animation: showText 7s linear;
+}
+
+@keyframes showText {
+    0% {
+        transform: translateY(-500%) scale(1, 1);
+        opacity: 1;
+
+    }
+
+    100% {
+        transform: translateX(0%) scale(1, 1);
+        text-shadow: 2px 2px 1px black;
+        color: white;
+        opacity: 1;
+    }
+}
+
+/*Fin Banner*/
+
+
+/*Inicio Articulos*/
+#content {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.cards {
+    justify-content: space-between;
+    flex-basis: 97%;
+    margin: 20px auto;
+    margin-left: 29px;
+}
+
+.cards article {
+    width: 98%;
+    height: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-family: "TrebuchetMS";
+    background: white;
+    color: black;
+    box-shadow: 1px 1px 2px #ddd;
+}
+
+.cards h2 {
+    display: block;
+    width: 98%;
+    height: 46px;
+    line-height: 50px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    background: #A52A2A;
+    box-shadow: 0px 1px 0px #383d3e, 1px 2px 0px #383d3e, 2px 3px 0px #383d3e, 3px 4px 0px #383d3e;
+    margin: 0px auto;
+    margin-top: 20px;
+    margin-left: -4px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.card {
+    margin-bottom: 25px;
+    border: 1px solid #ccc;
+    flex-basis: 250px;
+    margin-right: 20px;
+    flex-grow: 1;
+}
+
+
+.cards article h4 {
+    display: block;
+    font-size: 23px;
+    margin: 3px;
+}
+
+.cards article h4 a {
+    text-decoration: none;
+    color: black;
+}
+
+.cards article h4 a:hover {
+    text-decoration: underline;
+}
+
+.cards .data {
+    float: right;
+    background: #393d3f;
+    color: white;
+    height: 30px;
+    line-height: 30px;
+    margin: -10px;
+    padding: 4px;
+    font-size: 13px;
+    border-radius: 0px 0px 0px 5px;
+
+}
+
+.cards .data span {
+    margin: 0px;
+}
+
+.cards article p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+/*Fin Articulos*/
+
+/*Inicio Footer*/
+
+#footer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    height: 10% auto;
+
+    align-items: center;
+    background: black;
+    color: white;
+}
+
+#footer #menu_footer {
+    flex-basis: auto;
+    flex-grow: 1;
+    text-align: right;
+    order: 1;
+}
+
+#footer #location {
+    flex-basis: auto;
+    flex-grow: 1;
+    text-align: right;
+    order: 2;
+}
+
+#footer #info {
+    flex-basis: auto;
+    flex-grow: 1;
+    text-align: center;
+    order: 3;
+
+}
+
+#footer .wrap>div {
+    width: 318px;
+    height: 300px;
+    margin: 20px;
+    text-align: center;
+    color: white;
+    font-family: "TrebuchetMS";
+}
+
+footer a {
+    text-decoration: none;
+    color: #f7f7f7;
+    transition: all 300ms;
+}
+
+footer a:hover {
+    color: #c52929 !important;
+    transform: scale(1.2, 1.2);
+    /*Pequeña animacion en las letras.*/
+
+}
+
+
+#footer h5 {
+    width: 98%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: Helvetica, sans-serif;
+    font-size: 17px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    background: #A52A2A;
+    box-shadow: 0px 1px 0px #383d3e, 1px 2px 0px #383d3e, 2px 3px 0px #383d3e, 3px 4px 0px #383d3e;
+    margin: 0px auto;
+    margin-top: 20px;
+    margin-left: -4px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+#footer ul {
+    text-align: left;
+    margin: 17px;
+    font-size: 14px;
+    list-style: none;
+}
+
+#footer ul li {
+    margin-top: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+#footer ul li a {
+    height: 40px;
+    transition: all 300ms;
+}
+
+#footer ul li:hover a {
+    padding-left: 40px;
+    color: white;
+    width: 100%;
+}
+
+#footer iframe {
+    width: 100%;
+    height: 70%;
+    margin-top: 10px;
+    border-radius: 5px solid white;
+    box-shadow: 0px 0px 5px gray;
+
+}
+
+/*Botones e Imputs*/
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="number"] {
+    display: block;
+    margin: 0px auto;
+    margin-top: 0px;
+    width: 81%;
+    height: 33px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px #ccc inset;
+    border-radius: 5px;
+    padding-left: 35px;
+    color: gray;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    color: #555;
+    box-shadow: 1px 1px 1px 1px #A52A2A inset;
+
+}
+
+input[type="email"]:hover,
+input[type="password"]:hover,
+input[type="text"]:hover,
+input[type="number"]:hover {
+    outline: none;
+    box-shadow: 1px 1px 1px 1px #A52A2A inset;
+
+}
+
+input[type="submit"],
+button {
+    display: block;
+    align-content: center;
+    text-align: center;
+    font-size: 17px;
+    width: 89%;
+    height: 35px;
+    margin-top: 20px;
+    color: white;
+    border: 1px solid #080808;
+    background: linear-gradient(to bottom, #A52A2A 0%, #b83434 100%);
+    border-radius: 0px;
+    font-size: 15px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-family: "verdana";
+    font-weight: lighter;
+    margin-left: 30px;
+
+}
+
+input[type="submit"]:hover,
+button:hover {
+    box-shadow: 0px 0px 3px gray;
+    transition: all 300ms;
+}
+
+.selector {
+    width: 84%;
+    padding: 5px;
+    height: 34px;
+
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px #ccc inset;
+    border-radius: 5px;
+    color: gray;
+
+}
+
+.selector:focus {
+    background-color: #f8f9f9;
+    box-shadow: 1px 1px 1px 1px #A52A2A inset;
+    outline: none;
+}
+
+.selector:hover {
+    outline: none;
+    box-shadow: 1px 1px 1px 1px #A52A2A inset;
+    background-color: #f8f9f9;
+}
+
+
+/*Mensajes de contraseña incorrecta*/
+
+.mensaje-error {
+    visibility: hidden;
+    color: red;
+}
+.mensaje-ok {
+    visibility: hidden;
+    color: green;
+}
+
+.activar{
+    visibility: visible;
+}

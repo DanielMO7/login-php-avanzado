@@ -1,67 +1,120 @@
-<?php
-// Verifica si existe una session, si no exsite la crea  si ya existe no la crea.
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-/**
- * Verifica que el rol del usuario sea administrador para que pueda acceder a esta vista.
- */
-if (isset($_SESSION['rol']) and $_SESSION['rol'] == 'Administrador') {
+<!DOCTYPE html>
+<html lang="es">
 
-    echo '<h2>Bienvenido ' . $_SESSION['rol'] . ' a la Lista de Usuarios.</h2>';
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../Public/styles/styles.css">
+    <link rel="stylesheet" href="../../Public/styles/styles-login.css">
+    <link rel="stylesheet" href="../../Public/styles/styles-admin.css">
+    <link rel="stylesheet" href="../../Public/styles/styles-resposive.css">
 
-    require_once '././Controllers/AdminController.php';
+    <title>Cambiar Contraseña</title>
+</head>
 
-    /**
-     * Se invoca una funcion que permite traer los datos del los usuarios.
-     */
-    $lista_usuarios = new AdminController();
-    $usuarios = $lista_usuarios->ListaUsuarios();
-    ?>
-<h2>Lista De Usuarios</h2>
-<input type="button" value="cerrar sesion" onclick="window.location.href='/login/index.php?action=cerrar_sesion'">     
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Documento</th>
-                <th>Email</th>   
-                <th>Rol</th>
-                <th>Accion</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($usuarios as $usuario) { ?>
-               <tr>
-               <td><?php echo $usuario['nombre_usuario']; ?></td>
-               <td><?php echo $usuario['documento']; ?></td>
-               <td><?php echo $usuario['email']; ?></td>
-               <td><?php echo $usuario['rol']; ?></td>
-               <td>
-               <form action="lista_usuarios/editar_usuario" method="GET">
-                <!--<input type="hidden" name="action" value="">-->
-                <input type="hidden" name="id" value="<?php echo $usuario[
-                    'id'
-                ]; ?>">
-                <input type="submit" value="Editar">
-                </td>
-                
-                <td>
-               </form>
-                <form action="lista_usuarios/borrar_usuario" method="POST">
-                <input type="hidden" name="action" value="borrar_usuario">
-                <input type="hidden" name="id" value="<?php echo $usuario[
-                    'id'
-                ]; ?>">
-                <input type="submit" value="Borrar">
-                </form>
-                </td>
-               </tr>
-            <?php } ?>
-        </tbody>
-    </table>    
-<?php
-} else {
-    header('Location: /login/index.php/home');
-}
-?>
+<body>
+    <!--Inicio Container.-->
+    <div id="container-admin">
+        <!---Inicio Cabecera-->
+        <header id="header-admin">
+            <div class="contenedor-header-admin">
+                <div class="titulo-admin">
+                    <a href="#">
+                        <h1>BIBLIOTECA</h1>
+                    </a>
+                </div>
+                <div class="logo-bilioteca logo-admin">
+                    <h2>S</h2>
+                </div>
+                <nav id="menu-admin">
+                    <ul>
+                        <li>
+                            <a href="#">Lista Usuarios</a>
+                        </li>
+                        <li>
+                            <a href="#">Inicio</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <!--Fin Cabecera-->
+
+        <div class="contenido-admin">
+            <div class="content-admin">
+                <div class="banner-content">
+                    <h1>Lista de Usuarios.</h1>
+                </div>
+                <div class="content-text">
+                    <table class="tabla-admin">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Documento</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Accion</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="fila-tabla-usuario-admin">
+                            <tr>
+                                <td>
+                                    Daniel Mendez
+                                </td>
+                                <td>
+                                    1004668435
+                                </td>
+                                <td>
+                                    dani019jorje@gmail.com
+                                </td>
+                                <td>
+                                    Usuario
+                                </td>
+                                <td>
+                                    <input class="lista-user-boton" type="submit" value="Editar">
+                                    <input class="lista-user-boton" type="submit" value="Borrar">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Daniel Mendez
+                                </td>
+                                <td>
+                                    1004668435
+                                </td>
+                                <td>
+                                    dani019jorje@gmail.com
+                                </td>
+                                <td>
+                                    Usuario
+                                </td>
+                                <td>
+                                    <input class="lista-user-boton" type="submit" value="Editar">
+                                    <input class="lista-user-boton" type="submit" value="Borrar">
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!--Inicio Footer-->
+    <footer id="footer-admin">
+        <h5>AUTOR &copy; Daniel Mendez</h5>
+        </div>
+        </div>
+    </footer>
+    <!--Fin footer-->
+    <!--Fin Container.-->
+
+
+
+</body>
+
+</html>

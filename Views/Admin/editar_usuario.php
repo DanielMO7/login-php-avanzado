@@ -42,17 +42,27 @@
 
         <div class="contenido-admin">
             <div class="content-admin">
-                <div class="banner-content">
-                    <h1>Bienvenido Administrador</h1>
-                </div>
-                <div class="content-text">
-                    <p>En este espacio podras ver las funcionalidades y los diferentes procesos a los que como
-                        Administrador
-                        tienes acceso</p>
-                </div>
-
+                <h1>Editar Usuario.</h1> <br>
+                <form>
+                    <h4>Nombre: </h4>
+                    <input type="text">
+                    <br>
+                    <h4>Documento: </h4>
+                    <input type="number">
+                    <br>
+                    <h4>Correo Electronico: </h4>
+                    <input type="email">
+                    <br>
+                    <h4>Rol: </h4>
+                    <select>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Empleado">Empleado</option>
+                    </select>
+                    <br>
+                    <button class="lista-user-boton" type="submit" value="Guardar">Guardar</button>
+                    <button class="lista-user-boton" type="submit" value="Cancelar">Cancelar</button>
+                </form>
             </div>
-
         </div>
     </div>
     <!--Inicio Footer-->

@@ -92,7 +92,7 @@ class Usuario
                 $_SESSION['token'] = $token;
                 return true;
             } else {
-                return "credenciales_incorrectas";
+                return 'contraseña o email incorrectos';
             }
         }
     }

@@ -1,0 +1,180 @@
+@media (max-width: 950px) {
+
+    #banner h1 {
+        font-size: 40px;
+        width: 100%;
+    }
+
+    #menu>ul {
+        flex-direction: row;
+    }
+}
+
+@media (max-width:720px) {
+    #header {
+        flex-direction: column;
+        margin: 0px auto;
+        height: 120px;
+    }
+
+    #menu {
+        width: 100%;
+        padding: 1px;
+    }
+
+    #menu a {
+        padding: 5px;
+        width: 100%;
+    }
+
+    #menu>ul {
+        width: 100%;
+    }
+
+}
+
+@media (max-width:720px) {
+    #banner {
+        height: 150px;
+    }
+
+    #banner h1 {
+        font-size: 30px;
+        width: 100%;
+    }
+}
+
+@media (max-width:500px) {
+    #banner {
+        height: 100px;
+    }
+
+    #banner h1 {
+        font-size: 20px;
+        margin: 16px auto;
+    }
+
+    .cards {
+        margin-left: 18px;
+    }
+
+    .cards .data {
+        float: none;
+        margin-bottom: 10px;
+    }
+}
+
+/*Resposive Formularios*/
+
+@media (max-width:911px) {
+    .center {
+        justify-content: center !important;
+    }
+
+    .contenedor-formularios {
+        width: 95%;
+    }
+
+    .logo-login {
+        margin-top: 1.2%;
+        margin-left: 5.2%;
+    }
+}
+
+@media (max-width:611px) {
+    .center {
+        justify-content: center !important;
+    }
+
+    .contenedor-formularios {
+        flex-direction: column;
+    }
+
+    .contenedor-formularios .formulario-contenido .content {
+        font-size: 10px;
+    }
+
+    .titulo {
+        flex-direction: column;
+    }
+
+    #cambiar_contrasena-title {
+        background-size: 578px;
+        background-position: -589px -501px;
+    }
+
+    .logo-login {
+        margin-top: 1.8%;
+        margin-left: 8.2%;
+    }
+
+    .contenedor-formularios .titulo h5 {
+        flex-direction: column;
+        height: 18%;
+    }
+}
+
+
+/**/
+
+
+@media (max-width: 1000px) {
+
+    #contenedor-principal {
+        width: 100%;
+
+    }
+
+    .contenido {
+        overflow: hidden;
+        overflow-x: scroll;
+    }
+
+}
+
+@media (max-width: 895px) {}
+
+@media (max-width:372px) {
+    .contenedor-formularios .titulo h5 {
+        font-size: 20px;
+    }
+
+    input[type="submit"],
+    button {
+        margin: 0px auto;
+        margin-top: 10px;
+    }
+}
+
+/*Responsive Admin*/
+@media (max-width:1000px) {
+    #container-admin {
+        flex-direction: column;
+    }
+
+    #menu-admin ul {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .tabla-admin {
+        overflow: hidden;
+        overflow-x: scroll;
+    }
+}
+
+@media (max-width:900px) {
+    .content-text {
+        justify-content: left;
+    }
+
+    .content-text {
+        overflow: hidden;
+        overflow-x: scroll;
+    }
+
+    .banner-content h1 {
+        font-size: 25px;
+        height: 44px;
+    }
+}

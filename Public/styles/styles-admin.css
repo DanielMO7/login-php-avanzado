@@ -1,0 +1,264 @@
+#container-admin {
+    display: flex;
+    width: 100%;
+    height: auto;
+    margin: 0px auto;
+
+
+    min-height: 750px;
+    background: white;
+    padding: 0px;
+}
+
+/*Barra lateral izquierda*/
+
+
+/*Header Lateral*/
+#header-admin {
+    flex-basis: 20%;
+}
+
+.contenedor-header-admin {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    background: #131313;
+    color: #86868b;
+
+}
+
+.titulo-admin {
+    display: flex;
+    background: #2b2b2b;
+    height: 58px;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo-admin a {
+    text-decoration: none;
+    color: white;
+    font-size: 13px;
+}
+
+
+.titulo a {
+    color: white;
+}
+
+.titulo a:hover {
+    color: rgb(145, 231, 145);
+}
+
+#menu-admin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 25px;
+    line-height: 35px;
+    width: 100%;
+
+}
+
+#menu-admin ul {
+    display: block;
+    list-style: none;
+    text-align: center;
+    width: 100%;
+}
+
+#menu-admin a {
+    text-decoration: none;
+    color: white;
+}
+
+#menu-admin li:hover {
+    background: #1561f0;
+}
+
+.logo-admin {
+    text-align: center;
+    font-size: 25px;
+    color: white;
+    margin: 0px auto;
+    padding-top: 15px;
+}
+
+.logo-admin h2:hover {
+    color: #1561f0;
+}
+
+/*Fin header lateral*/
+
+/*Inicio contenido Lista usuarios Admin*/
+.contenido-admin {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 80%;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.content-admin {
+    text-align: center;
+    width: 90%;
+    border: 1px solid black;
+    margin: 10px;
+}
+
+.content-text {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    padding: 20px;
+}
+
+.banner-content {
+    display: flex;
+    align-items: center;
+    background: #131313;
+    height: 50px;
+}
+
+.banner-content h1 {
+    width: 100%;
+    color: white;
+}
+
+/*Fin contenido Admin*/
+
+/*Inicio Footer Admin*/
+#footer-admin {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+
+
+    align-items: center;
+    background: #1561f0;
+    color: black;
+}
+
+#footer-admin h5 {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    height: 25px;
+    color: white;
+}
+
+
+/*Fin Footer Admin*/
+
+/*Inicio Lista Usuarios Admin*/
+.tabla-admin {
+    width: 100%;
+    height: auto;
+    border-bottom: none;
+}
+
+/*Fin Lista Usuarios Admin*/
+
+.lista-user-boton {
+    width: 75% !important;
+    height: 28px !important;
+}
+
+.lista-user-boton[value="Editar"] {
+    background: #1561f0;
+    border-radius: 3px;
+    margin: 5px auto;
+    color: #ffffff;
+
+}
+
+.lista-user-boton[value="Borrar"] {
+    background: #c91414;
+    border-radius: 3px;
+    margin: 5px auto;
+    color: #ffffff;
+}
+
+.lista-user-boton[value="Guardar"] {
+    background: #1561f0;
+    border-radius: 3px;
+    margin: 10px auto;
+    color: #ffffff;
+}
+
+.lista-user-boton[value="Cancelar"] {
+    background: #070707;
+    border-radius: 3px;
+    margin: 10px auto;
+    color: #ffffff;
+}
+
+.tabla-admin tbody {
+    height: 50px;
+}
+
+.fila-tabla-usuario-admin tr:hover {
+    background: #cfcfcf;
+    color: rgb(2, 2, 2);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    text-shadow: 1px 1px 1px rgb(255, 255, 255);
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="number"] {
+    border-radius: 0px !important;
+    padding-left: 10px;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    color: #555;
+    box-shadow: 1px 1px 1px 1px #1561f0 inset;
+
+}
+
+input[type="email"]:hover,
+input[type="password"]:hover,
+input[type="text"]:hover,
+input[type="number"]:hover {
+    outline: none;
+    box-shadow: 1px 1px 1px 1px #1561f0 inset;
+
+}
+
+select {
+    width: 82%;
+    padding: 5px;
+    height: 34px;
+
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px #ccc inset;
+    border-radius: 0px;
+    color: gray;
+
+}
+
+select:focus {
+    background-color: #f8f9f9;
+    box-shadow: 1px 1px 1px 1px #1561f0 inset;
+    outline: none;
+}
+
+select:hover {
+    outline: none;
+    box-shadow: 1px 1px 1px 1px #1561f0 inset;
+    background-color: #f8f9f9;
+}
