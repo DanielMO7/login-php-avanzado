@@ -148,7 +148,7 @@
 
 /*Responsive Admin*/
 @media (max-width:1000px) {
-    #container-admin {
+    #container-admin-box{
         flex-direction: column;
     }
 

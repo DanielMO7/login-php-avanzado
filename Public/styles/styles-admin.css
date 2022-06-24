@@ -1,16 +1,22 @@
 #container-admin {
-    display: flex;
+    display: grid;
     width: 100%;
     height: auto;
     margin: 0px auto;
 
 
-    min-height: 750px;
+    min-height:  100vh;
     background: white;
     padding: 0px;
+    grid-template-rows: auto 1fr auto;
 }
 
 /*Barra lateral izquierda*/
+
+#container-admin-box {
+    display: flex;
+    height: 100vh;
+}
 
 
 /*Header Lateral*/

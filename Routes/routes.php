@@ -84,20 +84,32 @@ if (isset($_SESSION['token'])) {
     route('/login/index.php/perfil', function () {
         $vista = new UsuarioController();
         $vista->PerfiUsuarios();
+        
+    });
+
+    route('/login/index.php/perfil-usuario', function (){
+        $usuarios = new UsuarioController();
+        $resultados = $usuarios->GuardarInfoListaUsuario();
+        echo json_encode($resultados);
     });
 
     /**
      * Datos del usuario a editar.
      */
-    if (isset($_GET['id'])) {
+    if (isset($_GET['id']) and $_GET['id'] == $_SESSION['Usuario']) {
         route(
-            '/login/index.php/lista_usuario/editar_perfil?id=' . $_GET['id'],
+            '/login/index.php/perfil-usuario?id='.$_GET['id'],
             function () {
-                $usuario = new UsuarioController();
-                $resultados = $usuario->EditarUsuario($_GET['id']);
-                echo json_encode($resultados);
+                $vista = new UsuarioController();
+                $vista->EditarVista();
             }
         );
+        route('/login/index.php/perfil-usuario/editar_perfil?id='.$_GET['id'], 
+        function() {
+            $usuario = new UsuarioController();
+            $resultados = $usuario->EditarUsuario($_GET['id']);
+            echo json_encode($resultados);
+        });
     }
 
     /**
@@ -108,6 +120,13 @@ if (isset($_SESSION['token'])) {
         $instancia_controlador->CerrarSession();
     });
 
+    route('/login/index.php/perfil-usuario/cambiar_contrasena',
+    function (){
+        $vista = new UsuarioController();
+        $vista->CambiarContrasenaVista();
+    }
+);
+
     /**
      * METODOS POST
      */
@@ -117,9 +136,8 @@ if (isset($_SESSION['token'])) {
      * en caso de error.
      */
     route(
-        '/login/index.php/perfil/editar_perfil/guardar_edicion_perfil',
+        '/login/index.php/perfil-usuario/editar_perfil/guardar_edicion_perfil',
         function () {
-            session_start();
             if ($_SESSION['Usuario'] == $_POST['id']) {
                 $instancia_controlador = new UsuarioController();
                 $resultado = $instancia_controlador->EnviarDatosActualizar(
@@ -129,14 +147,13 @@ if (isset($_SESSION['token'])) {
                     $_POST['email']
                 );
                 if ($resultado == 1) {
-                    echo 'Datos guardados correctamente.';
-                } else {
-                    if ($resultado == 'email_existente') {
-                        echo 'El correo que ingresaste ya se encuentra registrado.';
-                    } elseif ($resultado == 'documento_existente') {
-                        echo 'El documento que ingresaste ya se encuentra registrado';
-                    }
+                    echo 'datos_guardados';
+                } else if($resultado == 'email_existente'){
+                    echo 'email_existente';
+                }elseif ($resultado == 'documento_existente'){
+                    echo 'documento_existente';
                 }
+                
             } else {
                 echo 'No estas autorizado';
             }
@@ -159,14 +176,14 @@ if (isset($_SESSION['token'])) {
                     $_POST['contrasena_verificar']
                 );
                 if ($resultado == 1) {
-                    echo 'Contraseña guardada correctamente';
+                    echo 'contrasena_correcta';
                 } else {
                     if ($resultado == 'contrasena_incorrecta') {
-                        echo 'La contrasena que ingresaste no es correcta.';
+                        echo 'contrasena_incorrecta';
                     } elseif ($resultado == 'id_no_coincide') {
-                        echo 'No puedes realizar esta accion';
+                        echo 'no_autorizacion';
                     } elseif ($resultado == 'contasena_no_coincide') {
-                        echo 'Las contraseñas no coinciden';
+                        echo 'contrasena_no_coincide';
                     }
                 }
             } else {
@@ -187,10 +204,15 @@ if (isset($_SESSION['token'])) {
             $vista->AdminIndex();
         });
 
+        route('/login/index.php/lista_usuarios', function () {
+            $vista = new AdminController();
+            $vista->ListaVista();
+        });
+
         /**
          * Muestra la lista de usuarios que hay en la base de datos.
          */
-        route('/login/index.php/lista_usuarios', function () {
+        route('/login/index.php/lista_usuarios/datos', function () {
             $lista_usuarios = new AdminController();
             $usuarios = $lista_usuarios->ListaUsuarios();
 
@@ -201,10 +223,18 @@ if (isset($_SESSION['token'])) {
          * Muestra los datos del usuario.
          */
         if (isset($_GET['id'])) {
+            route('/login/index.php/lista_usuarios/editar_usuario?id='.$_GET['id'], 
+            function()
+            {
+                $vista = new AdminController();
+                $vista->EditarVista();
+            });
+
             route(
-                '/login/index.php/lista_usuarios/editar_usuario?id=' .
+                '/login/index.php/lista_usuarios/editar_usuario/datos?id=' .
                     $_GET['id'],
-                function () {
+                function () 
+                {
                     $usuario = new AdminController();
                     $resultados = $usuario->EditarUsuario($_GET['id']);
 
@@ -245,18 +275,19 @@ if (isset($_SESSION['token'])) {
                 );
 
                 if ($resultado == 1) {
-                    echo 'Usuario editado correctamente';
+                    echo 'datos_guardados';
                 } else {
                     if ($resultado == 'email_existente') {
-                        echo 'El correo que ingresaste ya se encuentra registrado.';
+                        echo 'email_existente';
                     } elseif ($resultado == 'documento_existente') {
-                        echo 'El documento que ingresaste ya se encuentra registrado';
+                        echo 'documento_existente';
                     }
                 }
             }
         );
     }
 } else {
+    
     route('/404', function () {
         echo 'Page not found 404';
     });

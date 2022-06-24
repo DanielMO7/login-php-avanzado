@@ -82,7 +82,7 @@
                         </div>
                         <div class="contents">
                         <button id="registrar" type="button" onclick="registrarUsuario()" >Guardar</button>
-                        <button type="button">Cancelar</button>
+                        <button type="button" onclick="cancelarRegistro()">Cancelar</button>
                         </div>
                     </form>
                 </div>

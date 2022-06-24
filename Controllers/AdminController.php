@@ -6,15 +6,15 @@ class AdminController
 {
     public function AdminIndex()
     {
-        require './Views/Admin/admin.html';
+        require './Views/Admin/admin.php';
     }
     public function ListaVista()
     {
-        require './Views/Admin/lista_usuarios.html';
+        require './Views/Admin/lista_usuarios.php';
     }
     public function EditarVista()
     {
-        require './Views/Admin/editar_usuarios.html';
+        require './Views/Admin/editar_usuarios.php';
     }
 
     /**
