@@ -34,7 +34,7 @@ function obtenerUsuarios() {
                 td5.innerHTML =
                     '<input onclick="editarUsuarioAdmin(' +
                     dato.id +
-                    ')" class="lista-user-boton" type="submit" value="Editar"><input class="lista-user-boton" type="submit" value="Borrar">'
+                    ')" class="lista-user-boton" type="submit" value="Editar"><input onclick="eliminarUsuario('+dato.id+')" class="lista-user-boton" type="submit" value="Borrar">'
                 tr.appendChild(td5)
 
                 $fragment.appendChild(tr)
@@ -147,4 +147,33 @@ function cancelarEdicionUsuario(){
     window.location.replace(
         'http://localhost:81/login/index.php/lista_usuarios'
     )
+}
+
+function eliminarUsuario(id) {
+    let id_eliminar = id
+
+    let credenciales = new FormData()
+    credenciales.append('id', id_eliminar)
+    axios
+        .post(
+            'http://localhost:81/login/index.php/lista_usuarios/borrar_usuario',
+            credenciales,
+        )
+        .then(function (response) {
+            if (response.data == 'borrado_correctamente') {
+                function desactivarMensaje() {
+                    window.location.replace(
+                        'http://localhost:81/login/index.php/lista_usuarios'
+                    )
+                }
+                alert('Usuario borrado correctamente.')
+                
+                setTimeout(desactivarMensaje, 1000)
+            } 
+            console.log(response.data)
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+    
 }

@@ -79,15 +79,13 @@ route('/404', function () {
  * Valida Que existe una sesion.
  * */
 if (isset($_SESSION['token'])) {
-
     // Vista Editar Perfil
     route('/login/index.php/perfil', function () {
         $vista = new UsuarioController();
         $vista->PerfiUsuarios();
-        
     });
 
-    route('/login/index.php/perfil-usuario', function (){
+    route('/login/index.php/perfil-usuario', function () {
         $usuarios = new UsuarioController();
         $resultados = $usuarios->GuardarInfoListaUsuario();
         echo json_encode($resultados);
@@ -97,19 +95,18 @@ if (isset($_SESSION['token'])) {
      * Datos del usuario a editar.
      */
     if (isset($_GET['id']) and $_GET['id'] == $_SESSION['Usuario']) {
+        route('/login/index.php/perfil-usuario?id=' . $_GET['id'], function () {
+            $vista = new UsuarioController();
+            $vista->EditarVista();
+        });
         route(
-            '/login/index.php/perfil-usuario?id='.$_GET['id'],
+            '/login/index.php/perfil-usuario/editar_perfil?id=' . $_GET['id'],
             function () {
-                $vista = new UsuarioController();
-                $vista->EditarVista();
+                $usuario = new UsuarioController();
+                $resultados = $usuario->EditarUsuario($_GET['id']);
+                echo json_encode($resultados);
             }
         );
-        route('/login/index.php/perfil-usuario/editar_perfil?id='.$_GET['id'], 
-        function() {
-            $usuario = new UsuarioController();
-            $resultados = $usuario->EditarUsuario($_GET['id']);
-            echo json_encode($resultados);
-        });
     }
 
     /**
@@ -120,12 +117,10 @@ if (isset($_SESSION['token'])) {
         $instancia_controlador->CerrarSession();
     });
 
-    route('/login/index.php/perfil-usuario/cambiar_contrasena',
-    function (){
+    route('/login/index.php/perfil-usuario/cambiar_contrasena', function () {
         $vista = new UsuarioController();
         $vista->CambiarContrasenaVista();
-    }
-);
+    });
 
     /**
      * METODOS POST
@@ -148,12 +143,11 @@ if (isset($_SESSION['token'])) {
                 );
                 if ($resultado == 1) {
                     echo 'datos_guardados';
-                } else if($resultado == 'email_existente'){
+                } elseif ($resultado == 'email_existente') {
                     echo 'email_existente';
-                }elseif ($resultado == 'documento_existente'){
+                } elseif ($resultado == 'documento_existente') {
                     echo 'documento_existente';
                 }
-                
             } else {
                 echo 'No estas autorizado';
             }
@@ -223,18 +217,19 @@ if (isset($_SESSION['token'])) {
          * Muestra los datos del usuario.
          */
         if (isset($_GET['id'])) {
-            route('/login/index.php/lista_usuarios/editar_usuario?id='.$_GET['id'], 
-            function()
-            {
-                $vista = new AdminController();
-                $vista->EditarVista();
-            });
+            route(
+                '/login/index.php/lista_usuarios/editar_usuario?id=' .
+                    $_GET['id'],
+                function () {
+                    $vista = new AdminController();
+                    $vista->EditarVista();
+                }
+            );
 
             route(
                 '/login/index.php/lista_usuarios/editar_usuario/datos?id=' .
                     $_GET['id'],
-                function () 
-                {
+                function () {
                     $usuario = new AdminController();
                     $resultados = $usuario->EditarUsuario($_GET['id']);
 
@@ -253,7 +248,7 @@ if (isset($_SESSION['token'])) {
         route('/login/index.php/lista_usuarios/borrar_usuario', function () {
             $instancia_controlador = new AdminController();
             if ($instancia_controlador->GuardarIDEliminar($_POST['id'])) {
-                echo 'borrado correctamente.';
+                echo 'borrado_correctamente';
             } else {
                 echo 'Error';
             }
@@ -287,7 +282,6 @@ if (isset($_SESSION['token'])) {
         );
     }
 } else {
-    
     route('/404', function () {
         echo 'Page not found 404';
     });

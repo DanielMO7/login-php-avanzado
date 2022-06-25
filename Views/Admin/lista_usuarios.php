@@ -1,3 +1,8 @@
+<?php
+// Verifica si existe una session, si no exsite la crea  si ya existe no la crea.
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+} ?>
 <!DOCTYPE html>
 <html lang="es">
 
