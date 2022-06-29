@@ -282,8 +282,9 @@ if (isset($_SESSION['token'])) {
         );
     }
 } else {
-    route('/404', function () {
-        echo 'Page not found 404';
+    route('/login/index.php/login', function () {
+        $vista = new UsuarioController();
+        $vista->Index();
     });
 }
 /**
