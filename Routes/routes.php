@@ -13,14 +13,14 @@ $routes = [];
 
 // Vista Login.
 
-route('/login/index.php/login', function () {
+route('/index.php/login', function () {
     $vista = new UsuarioController();
     $vista->LoginVista();
 });
 
 // Vista Registro.
 
-route('/login/index.php/register', function () {
+route('/index.php/register', function () {
     $vista = new UsuarioController();
     $vista->RegistrarVista();
 });
@@ -30,7 +30,7 @@ route('/login/index.php/register', function () {
  * especificando lo sucedido.
  *
  */
-route('/login/index.php/login/loguearse', function () {
+route('/index.php/login/loguearse', function () {
     $instancia_controlador = new UsuarioController();
     $resultado = $instancia_controlador->VerificarLogin(
         $_POST['email'],
@@ -49,7 +49,7 @@ route('/login/index.php/login/loguearse', function () {
  * correctas o no.
  *
  */
-route('/login/index.php/register/insertar', function () {
+route('/index.php/register/insertar', function () {
     $instancia_controlador = new UsuarioController();
     $resultado = $instancia_controlador->GuardarInformacionEnModelo(
         $_POST['nombre'],
@@ -65,7 +65,7 @@ route('/login/index.php/register/insertar', function () {
     }
 });
 // Vista Home.
-route('/login/index.php/home', function () {
+route('/index.php/home', function () {
     $vista = new UsuarioController();
     $vista->Index();
 });
@@ -80,12 +80,12 @@ route('/404', function () {
  * */
 if (isset($_SESSION['token'])) {
     // Vista Editar Perfil
-    route('/login/index.php/perfil', function () {
+    route('/index.php/perfil', function () {
         $vista = new UsuarioController();
         $vista->PerfiUsuarios();
     });
 
-    route('/login/index.php/perfil-usuario', function () {
+    route('/index.php/perfil-usuario', function () {
         $usuarios = new UsuarioController();
         $resultados = $usuarios->GuardarInfoListaUsuario();
         echo json_encode($resultados);
@@ -95,12 +95,12 @@ if (isset($_SESSION['token'])) {
      * Datos del usuario a editar.
      */
     if (isset($_GET['id']) and $_GET['id'] == $_SESSION['Usuario']) {
-        route('/login/index.php/perfil-usuario?id=' . $_GET['id'], function () {
+        route('/index.php/perfil-usuario?id=' . $_GET['id'], function () {
             $vista = new UsuarioController();
             $vista->EditarVista();
         });
         route(
-            '/login/index.php/perfil-usuario/editar_perfil?id=' . $_GET['id'],
+            '/index.php/perfil-usuario/editar_perfil?id=' . $_GET['id'],
             function () {
                 $usuario = new UsuarioController();
                 $resultados = $usuario->EditarUsuario($_GET['id']);
@@ -112,12 +112,12 @@ if (isset($_SESSION['token'])) {
     /**
      * Cierra la sesion del usuario.
      */
-    route('/login/index.php/cerrar_sesion', function () {
+    route('/index.php/cerrar_sesion', function () {
         $instancia_controlador = new UsuarioController();
         $instancia_controlador->CerrarSession();
     });
 
-    route('/login/index.php/perfil-usuario/cambiar_contrasena', function () {
+    route('/index.php/perfil-usuario/cambiar_contrasena', function () {
         $vista = new UsuarioController();
         $vista->CambiarContrasenaVista();
     });
@@ -131,7 +131,7 @@ if (isset($_SESSION['token'])) {
      * en caso de error.
      */
     route(
-        '/login/index.php/perfil-usuario/editar_perfil/guardar_edicion_perfil',
+        '/index.php/perfil-usuario/editar_perfil/guardar_edicion_perfil',
         function () {
             if ($_SESSION['Usuario'] == $_POST['id']) {
                 $instancia_controlador = new UsuarioController();
@@ -159,7 +159,7 @@ if (isset($_SESSION['token'])) {
      * un mensaje.
      */
     route(
-        '/login/index.php/lista_usuario/cambiar_contrasena/guardar_contrasena',
+        '/index.php/lista_usuario/cambiar_contrasena/guardar_contrasena',
         function () {
             if ($_SESSION['Usuario'] == $_POST['id']) {
                 $instancia_controlador = new UsuarioController();
@@ -193,12 +193,12 @@ if (isset($_SESSION['token'])) {
         /**
          * Retorna la vista principal de Admin.
          */
-        route('/login/index.php/admin', function () {
+        route('/index.php/admin', function () {
             $vista = new AdminController();
             $vista->AdminIndex();
         });
 
-        route('/login/index.php/lista_usuarios', function () {
+        route('/index.php/lista_usuarios', function () {
             $vista = new AdminController();
             $vista->ListaVista();
         });
@@ -206,7 +206,7 @@ if (isset($_SESSION['token'])) {
         /**
          * Muestra la lista de usuarios que hay en la base de datos.
          */
-        route('/login/index.php/lista_usuarios/datos', function () {
+        route('/index.php/lista_usuarios/datos', function () {
             $lista_usuarios = new AdminController();
             $usuarios = $lista_usuarios->ListaUsuarios();
 
@@ -218,7 +218,7 @@ if (isset($_SESSION['token'])) {
          */
         if (isset($_GET['id'])) {
             route(
-                '/login/index.php/lista_usuarios/editar_usuario?id=' .
+                '/index.php/lista_usuarios/editar_usuario?id=' .
                     $_GET['id'],
                 function () {
                     $vista = new AdminController();
@@ -227,7 +227,7 @@ if (isset($_SESSION['token'])) {
             );
 
             route(
-                '/login/index.php/lista_usuarios/editar_usuario/datos?id=' .
+                '/index.php/lista_usuarios/editar_usuario/datos?id=' .
                     $_GET['id'],
                 function () {
                     $usuario = new AdminController();
@@ -245,7 +245,7 @@ if (isset($_SESSION['token'])) {
         /**
          * Permite borrar el usuario del sistema.
          */
-        route('/login/index.php/lista_usuarios/borrar_usuario', function () {
+        route('/index.php/lista_usuarios/borrar_usuario', function () {
             $instancia_controlador = new AdminController();
             if ($instancia_controlador->GuardarIDEliminar($_POST['id'])) {
                 echo 'borrado_correctamente';
@@ -258,7 +258,7 @@ if (isset($_SESSION['token'])) {
          * Guarda los datos al editar un usuario.
          */
         route(
-            '/login/index.php/lista_usuarios/editar_usuario/guardar_edicion_usuarios',
+            '/index.php/lista_usuarios/editar_usuario/guardar_edicion_usuarios',
             function () {
                 $instancia_controlador = new AdminController();
                 $resultado = $instancia_controlador->EnviarDatosActualizar(
@@ -282,7 +282,7 @@ if (isset($_SESSION['token'])) {
         );
     }
 } else {
-    route('/login/index.php/login', function () {
+    route('/index.php/login', function () {
         $vista = new UsuarioController();
         $vista->Index();
     });
@@ -332,5 +332,3 @@ function run()
         $no_funciona_llamada();
     }
 }
-
-?>

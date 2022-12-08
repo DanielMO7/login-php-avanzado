@@ -11,9 +11,9 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/login/Public/styles/styles.css">
-    <link rel="stylesheet" href="/login/Public/styles/styles-login.css">
-    <link rel="stylesheet" href="/login/Public/styles/styles-resposive.css">
+    <link rel="stylesheet" href="/Public/styles/styles.css">
+    <link rel="stylesheet" href="/Public/styles/styles-login.css">
+    <link rel="stylesheet" href="/Public/styles/styles-resposive.css">
     <title>Inicio</title>
 </head>
 
@@ -26,7 +26,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                 <div class="logo-bilioteca">
                     <h2>Z</h2>
                 </div>
-                <a href="/login/index.php/home">
+                <a href="/index.php/home">
                     <h1>BIBLIOTECA</h1>
                 </a>
             </div>
@@ -34,10 +34,10 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
             <nav id="menu">
                 <ul class="center">
                     <li>
-                        <a href="/login/index.php/home">Inicio</a>
+                        <a href="/index.php/home">Inicio</a>
                     </li>
                     <li>
-                        <a href="/login/index.php/cerrar_sesion">Cerrar Sesión</a>
+                        <a href="/index.php/cerrar_sesion">Cerrar Sesión</a>
                     </li>
 
                 </ul>
@@ -60,15 +60,15 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                                 <td>Rol</td>
                             </tr>
                         </thead>
-                        <tbody id="formulario-usuario-script" class="fila-tabla-usuario" >
+                        <tbody id="formulario-usuario-script" class="fila-tabla-usuario">
                             <tr>
-                                
+
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="botones-perfil">
-                    
+
                     <input type="submit" value="Editar" class="boton-perfil" onclick="VistaEditarUsuario(<?php echo $_SESSION['Usuario'] ?>)">
                     <input type="submit" value="Cambiar Contraseña" class="boton-perfil" onclick="VistaCambiarContasena()">
                 </div>
@@ -106,8 +106,8 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
         </footer>
         <!--Fin footer-->
 
-    <script src="/login/Services/axios.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/Services/axios.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </body>
 

@@ -11,13 +11,13 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/login/Public/styles/styles.css">
-    <link rel="stylesheet" type="text/css" href="/login/Public/styles/styles-login.css">
-    <link rel="stylesheet" type="text/css" href="/login/Public/styles/styles-resposive.css">
+    <link rel="stylesheet" type="text/css" href="/Public/styles/styles.css">
+    <link rel="stylesheet" type="text/css" href="/Public/styles/styles-login.css">
+    <link rel="stylesheet" type="text/css" href="/Public/styles/styles-resposive.css">
     <title>Editar Perfil</title>
 </head>
 
-<body onload="datosUsuario(<?php echo $_SESSION['Usuario']?>)">
+<body onload="datosUsuario(<?php echo $_SESSION['Usuario'] ?>)">
     <!--Inicio Container.-->
     <div id="container">
         <!---Inicio Cabecera-->
@@ -26,7 +26,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                 <div class="logo-bilioteca">
                     <h2>Z</h2>
                 </div>
-                <a href="/login/index.php/home">
+                <a href="/index.php/home">
                     <h1>BIBLIOTECA</h1>
                 </a>
             </div>
@@ -66,7 +66,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                         </div>
                         <br>
                         <span id="mensaje-ok" class="mensaje-ok">Datos guardados Correctamente.</span>
-                        <button type="button" onclick="guardarEdicion(<?php echo $_SESSION['Usuario']?>)">Guardar</button>
+                        <button type="button" onclick="guardarEdicion(<?php echo $_SESSION['Usuario'] ?>)">Guardar</button>
                         <button type="button" onclick="cancelarEdicionPerfil()">Cancelar</button>
                     </form>
                 </div>
@@ -106,7 +106,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     </div>
     <!--Fin Container.-->
 
-    <script src="/login/Services/axios.js"></script>
+    <script src="/Services/axios.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </body>

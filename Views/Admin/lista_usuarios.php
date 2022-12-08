@@ -10,10 +10,10 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/login/Public/styles/styles.css">
-    <link rel="stylesheet" href="/login/Public/styles/styles-login.css">
-    <link rel="stylesheet" href="/login/Public/styles/styles-admin.css">
-    <link rel="stylesheet" href="/login/Public/styles/styles-resposive.css">
+    <link rel="stylesheet" href="/Public/styles/styles.css">
+    <link rel="stylesheet" href="/Public/styles/styles-login.css">
+    <link rel="stylesheet" href="/Public/styles/styles-admin.css">
+    <link rel="stylesheet" href="/Public/styles/styles-resposive.css">
 
     <title>Cambiar Contraseña</title>
 </head>
@@ -35,10 +35,10 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                     </div>
                     <nav id="menu-admin">
                         <ul>
-                            <a href="/login/index.php/lista_usuarios">
+                            <a href="/index.php/lista_usuarios">
                                 <li>Lista Usuarios</li>
                             </a>
-                            <a href="/login/index.php/admin">
+                            <a href="/index.php/admin">
                                 <li>Inicio</li>
                             </a>
                         </ul>
@@ -61,12 +61,12 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                                     <th>Email</th>
                                     <th>Rol</th>
                                     <th>Accion</th>
-                                
+
                                 </tr>
                             </thead>
                             <tbody id="formulario-usuarios-script" class="fila-tabla-usuario-admin">
                                 <tr>
-                                  
+
                                 </tr>
                             </tbody>
                         </table>
@@ -83,7 +83,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
         <!--Fin footer-->
         <!--Fin Container.-->
     </div>
-    <script src="/login/Services/admin.js"></script>
+    <script src="/Services/admin.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </body>
