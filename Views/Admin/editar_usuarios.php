@@ -35,6 +35,9 @@ DOCTYPE html>
                             <a href="/login/index.php/admin">
                                 <li>Inicio</li>
                             </a>
+                            <a href="/index.php/home">
+                                <li>Inicio biblioteca</li>
+                            </a>
                         </ul>
                     </nav>
                 </div>
