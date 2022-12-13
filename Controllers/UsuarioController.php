@@ -67,7 +67,7 @@ class UsuarioController
         $usuario = new Usuario();
         $usuario->email = $email;
         $usuario->contrasena = $contrasena;
-        
+
         return $usuario->ValidarUsuario();
     }
     /**
@@ -91,18 +91,18 @@ class UsuarioController
         }
 
         session_destroy();
-        header('Location: /login/index.php/login');
+        header('Location: /index.php/login');
     }
     /**
      * Trae todos los datos que tiene el usuario, que hace la peticion, en la base de datos.
      *
      * @return array Tabla de datos del usuario.
      */
-    public function GuardarInfoListaUsuario(){
+    public function GuardarInfoListaUsuario()
+    {
         $usuario = new Usuario();
         $resultado = $usuario->ListaUsuario();
         return $resultado;
-
     }
 
     /**
@@ -154,9 +154,9 @@ class UsuarioController
      * @return true|false Retorna true si se pudo actualizar correctamente la contraseña y false si
      * ocurrio algun error.
      */
-    public function EnviarContrasenas($id, $contrasena_anterior, $contrasena_nueva,$contrasena_verificar){
+    public function EnviarContrasenas($id, $contrasena_anterior, $contrasena_nueva, $contrasena_verificar)
+    {
         $usuario = new Usuario();
-        return $usuario->VerficiarCambiarContrasena($id, $contrasena_anterior, $contrasena_nueva,$contrasena_verificar);
+        return $usuario->VerficiarCambiarContrasena($id, $contrasena_anterior, $contrasena_nueva, $contrasena_verificar);
     }
 }
-?>
