@@ -97,9 +97,9 @@
                 <div id="menu_footer">
                     <h5>MENU</h5>
                     <ul>
-                        <li><a href="#">Inicio</a></li>
-                        <li><a href="#">Ingresar</a></li>
-                        <li><a href="#">Registrarce</a></li>
+                        <li><a href="/index.php/home">Inicio</a></li>
+                        <li><a href="/index.php/login">Ingresar</a></li>
+                        <li><a href="/index.php/register">Registrarce</a></li>
                     </ul>
                 </div>
             </div>

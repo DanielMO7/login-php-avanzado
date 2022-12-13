@@ -50,7 +50,13 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                         <li>
                             <a href="/index.php/perfil">Perfil</a>
                         </li>
+                        <?php if ($_SESSION['rol'] == "Administrador") { ?>
+                            <li>
+                                <a href="/index.php/admin">Administrador</a>
+                            </li>
+                        <?php } ?>
                     <?php } ?>
+
                 </ul>
             </nav>
         </header>
@@ -129,9 +135,9 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                 <div id="menu_footer">
                     <h5>MENU</h5>
                     <ul>
-                        <li><a href="#">Inicio</a></li>
-                        <li><a href="#">Ingresar</a></li>
-                        <li><a href="#">Registrarce</a></li>
+                        <li><a href="/index.php/home">Inicio</a></li>
+                        <li><a href="/index.php/login">Ingresar</a></li>
+                        <li><a href="/index.php/register">Registrarce</a></li>
                     </ul>
                 </div>
             </div>

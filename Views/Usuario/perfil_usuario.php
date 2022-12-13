@@ -83,7 +83,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                 <div id="menu_footer">
                     <h5>MENU</h5>
                     <ul>
-                        <li><a href="#">Inicio</a></li>
+                        <li><a href="/index.php/home">Inicio</a></li>
                     </ul>
                 </div>
             </div>
