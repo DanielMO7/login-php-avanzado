@@ -284,7 +284,7 @@ if (isset($_SESSION['token'])) {
 } else {
     route('/index.php/login', function () {
         $vista = new UsuarioController();
-        $vista->Index();
+        $vista->LoginVista();
     });
 }
 /**
