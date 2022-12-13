@@ -1,3 +1,11 @@
+
+/**
+ *              ¡¡¡¡¡¡¡ IMPORTANTE !!!!!!!
+ * Para el correcto funcionamiento del axios debes poner la url del servidor en el cual
+ * esta corriendo el proyecto.
+ */
+let host_server = "localhost:8000";
+
 function obtenerUsuarios() {
     const $formularios = document.getElementById('formulario-usuarios-script'),
         $fragment = document.createDocumentFragment()
@@ -5,7 +13,7 @@ function obtenerUsuarios() {
     async function getData() {
         try {
             let res = await axios.get(
-                'http://localhost:81/login/index.php/lista_usuarios/datos',
+                'http://'+host_server+'/index.php/lista_usuarios/datos',
             ),
                 json = await res.data
 
@@ -54,7 +62,7 @@ function obtenerUsuarios() {
 
 function editarUsuarioAdmin(id) {
     window.location.replace(
-        'http://localhost:81/login/index.php/lista_usuarios/editar_usuario?id=' +
+        'http://'+host_server+'/index.php/lista_usuarios/editar_usuario?id=' +
         id,
     )
 }
@@ -66,7 +74,7 @@ function datosUsuario(id) {
     async function getData() {
         try {
             let res = await axios.get(
-                '/login/index.php/lista_usuarios/editar_usuario/datos?id=' +
+                '/index.php/lista_usuarios/editar_usuario/datos?id=' +
                 id,
             ),
                 json = await res.data
@@ -110,7 +118,7 @@ function guardarEdicionUsuario(id){
 
     axios
         .post(
-            'http://localhost:81/login/index.php/lista_usuarios/editar_usuario/guardar_edicion_usuarios',
+            'http://'+host_server+'/index.php/lista_usuarios/editar_usuario/guardar_edicion_usuarios',
             credenciales,
         )
         .then(function (response) {
@@ -145,7 +153,7 @@ function guardarEdicionUsuario(id){
 
 function cancelarEdicionUsuario(){
     window.location.replace(
-        'http://localhost:81/login/index.php/lista_usuarios'
+        'http://'+host_server+'/index.php/lista_usuarios'
     )
 }
 
@@ -156,14 +164,14 @@ function eliminarUsuario(id) {
     credenciales.append('id', id_eliminar)
     axios
         .post(
-            'http://localhost:81/login/index.php/lista_usuarios/borrar_usuario',
+            'http://'+host_server+'/index.php/lista_usuarios/borrar_usuario',
             credenciales,
         )
         .then(function (response) {
             if (response.data == 'borrado_correctamente') {
                 function desactivarMensaje() {
                     window.location.replace(
-                        'http://localhost:81/login/index.php/lista_usuarios'
+                        'http://'+host_server+'/index.php/lista_usuarios'
                     )
                 }
                 alert('Usuario borrado correctamente.')

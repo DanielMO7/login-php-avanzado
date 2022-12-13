@@ -1,4 +1,11 @@
 /**
+ *              ¡¡¡¡¡¡¡ IMPORTANTE !!!!!!!
+ * Para el correcto funcionamiento del axios debes poner la url del servidor en el cual
+ * esta corriendo el proyecto.
+ */
+let host_server = "localhost:8000";
+
+/**
  * Validacion de las credenciales del usuario.
  */
 
@@ -13,10 +20,10 @@ function ingresarSistema() {
     /*console.log(credenciales);*/
 
     axios
-        .post('http://localhost:81/login/index.php/login/loguearse', credenciales)
+        .post('http://'+host_server+'/index.php/login/loguearse', credenciales)
         .then(function (response) {
             if (response.data == 1) {
-                window.location.replace('http://localhost:81/login/index.php/home')
+                window.location.replace('http://'+host_server+'/index.php/home')
             } else if (response.data == 2) {
                 let mensaje = document.getElementById('mensaje-error')
                 mensaje.classList.add('activar')
@@ -52,10 +59,10 @@ function registrarUsuario() {
     //console.log(credenciales.get('nombre'));
 
     axios
-        .post('http://localhost:81/login/index.php/register/insertar', credenciales)
+        .post('http://'+host_server+'/index.php/register/insertar', credenciales)
         .then(function (response) {
             if (response.data == 1) {
-                window.location.replace('http://localhost:81/login/index.php/login')
+                window.location.replace('http://'+host_server+'/index.php/login')
                 let mensaje = document.getElementById('mensaje-ok')
                 alert(
                     'Te has registrado correctamente. Ahora puedes Ingresar con tus credenciales.',
@@ -79,7 +86,7 @@ function registrarUsuario() {
  * Redireccion a el usuario a la vista principal
  */
 function cancelarRegistro() {
-    window.location.replace('http://localhost:81/login/index.php/home')
+    window.location.replace('http://'+host_server+'/index.php/home')
 }
 
 /**
@@ -92,7 +99,7 @@ function mostrarDatosUsuario() {
     async function getData() {
         try {
             let res = await axios.get(
-                'http://localhost:81/login/index.php/perfil-usuario',
+                'http://'+host_server+'/index.php/perfil-usuario',
             ),
                 json = await res.data
 
@@ -138,7 +145,7 @@ function mostrarDatosUsuario() {
  */
 function VistaEditarUsuario(id) {
     window.location.replace(
-        'http://localhost:81/login/index.php/perfil-usuario?id=' + id,
+        'http://'+host_server+'/index.php/perfil-usuario?id=' + id,
     )
 }
 
@@ -153,7 +160,7 @@ function datosUsuario(id) {
     async function getData() {
         try {
             let res = await axios.get(
-                'http://localhost:81/login/index.php/perfil-usuario/editar_perfil?id=' +
+                'http://'+host_server+'/index.php/perfil-usuario/editar_perfil?id=' +
                 id,
             ),
                 json = await res.data
@@ -198,7 +205,7 @@ function guardarEdicion(id) {
 
     axios
         .post(
-            'http://localhost:81/login/index.php/perfil-usuario/editar_perfil/guardar_edicion_perfil',
+            'http://'+host_server+'/index.php/perfil-usuario/editar_perfil/guardar_edicion_perfil',
             credenciales,
         )
         .then(function (response) {
@@ -235,7 +242,7 @@ function guardarEdicion(id) {
  * Retorna al perfil del usuario
  */
 function cancelarEdicionPerfil() {
-    window.location.replace('http://localhost:81/login/index.php/perfil')
+    window.location.replace('http://'+host_server+'/index.php/perfil')
 }
 
 /**
@@ -243,7 +250,7 @@ function cancelarEdicionPerfil() {
  */
 function VistaCambiarContasena() {
     window.location.replace(
-        'http://localhost:81/login/index.php/perfil-usuario/cambiar_contrasena',
+        'http://'+host_server+'/index.php/perfil-usuario/cambiar_contrasena',
     )
 }
 
@@ -268,7 +275,7 @@ function cambiarContrasena(id) {
 
     axios
         .post(
-            'http://localhost:81/login/index.php/lista_usuario/cambiar_contrasena/guardar_contrasena',
+            'http://'+host_server+'/index.php/lista_usuario/cambiar_contrasena/guardar_contrasena',
             credenciales,
         )
         .then(function (response) {
